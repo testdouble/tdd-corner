@@ -1,0 +1,14 @@
+{
+  "name": "a1",
+  "version": "1.0.0",
+  "description": "Advent of code - Day 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "teenytest test/*.test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "teenytest": "^6.0.2"
+  }
+}
