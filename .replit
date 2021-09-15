@@ -1,0 +1,2 @@
+language = "bash"
+run = "cd advent2020/a1 && npm test"
