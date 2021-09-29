@@ -24,12 +24,11 @@ function pairUp(inputs) {
 }
 
 function readFile(fileName) {
-  return fs.readFileSync(fileName).toString().split("\n").map(parseInt);
+  return fs.readFileSync(fileName).toString().split("\n").map(s => parseInt(s, 10));
 }
 
 function repairFile(fileName) {
   const expenses = readFile(fileName)
-  console.log(expenses)
   return repair(expenses)
 }
 
@@ -38,7 +37,7 @@ module.exports = {
     assert.strictEqual(1895, readFile("input.txt")[0])
   },
   itReadsAFileAndRepairsTheReport: () => {
-    assert.equal(42, repairFile('input.txt'))
+    assert.equal(1016131, repairFile('input.txt'))
   },
   itRepairsAZeroExpenseReport: () => {
     assert.equal(0, repair([0, 2020]))
