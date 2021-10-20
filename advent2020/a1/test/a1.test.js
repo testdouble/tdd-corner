@@ -1,5 +1,5 @@
 const assert = require('assert')
-const fs = require('fs')
+const readFile = require('../src/io')
 
 function doesMatch2020(i1, i2) {
   return i1 + i2 === 2020
@@ -23,21 +23,14 @@ function pairUp(inputs) {
   return pairs
 }
 
-function readFile(fileName) {
-  return fs.readFileSync(fileName).toString().split("\n").map(s => parseInt(s, 10));
-}
-
 function repairFile(fileName) {
   const expenses = readFile(fileName)
   return repair(expenses)
 }
 
 module.exports = {
-  itReadsAFileAndReturnsAnArrayOfInts: () => {
-    assert.strictEqual(1895, readFile("input.txt")[0])
-  },
   itReadsAFileAndRepairsTheReport: () => {
-    assert.equal(1016131, repairFile('input.txt'))
+    assert.equal(1016131, repairFile('input-steve.txt'))
   },
   itRepairsAZeroExpenseReport: () => {
     assert.equal(0, repair([0, 2020]))

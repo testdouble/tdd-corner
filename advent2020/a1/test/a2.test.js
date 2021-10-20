@@ -1,4 +1,5 @@
 const assert = require("assert")
+const readFile = require("../src/io")
 
 function tripleUp(input) {
   if(input.length < 3) return []
@@ -14,7 +15,19 @@ function tripleUp(input) {
 }
 
 function doesMatch2020(numbers) {
+  if (numbers.length != 3) return false;
   return numbers.reduce((acc, n) => n + acc, 0) === 2020
+}
+
+function repair(expenses) {
+  const triples = tripleUp(expenses)
+  const matchedTriple = triples.find(triple => doesMatch2020(triple))
+  return matchedTriple.reduce((acc, n) => n * acc, 1)
+}
+
+function repairFile(fileName) {
+  const expenses = readFile(fileName)
+  return repair(expenses)
 }
 
 module.exports = {
@@ -39,6 +52,24 @@ module.exports = {
     assert(!doesMatch2020(numbers))
   },
   itRequiresATripleToCheckFor2020: () => {
-    // TODO
+    const allNumbers = [
+      [1, 2019],
+      [1, 1, 1, 2017],
+    ]
+
+    allNumbers.forEach(numbers => {
+      assert(!doesMatch2020(numbers))
+    })
+  },
+  itRepairsAnExpenseReportWithThreeValues: () => {
+    const values = [1, 1, 2018]
+    assert.equal(2018, repair(values))
+  },
+  itRepairsAnExpenseReportWithFourValues: () => {
+    const values = [0, 1, 1, 2018]
+    assert.equal(2018, repair(values))
+  },
+  itReadsAFileAndRepairsTheReport: () => {
+    assert.equal(195700142, repairFile('input-kenny.txt'))
   },
 }
