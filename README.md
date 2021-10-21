@@ -40,5 +40,7 @@ https://mobti.me/td.   We'll start with strong pairing with these roles:
 
 ## Advent of Code
 Source: https://adventofcode.com/2020/day/1
+
 Replit: https://replit.com/@stevenjackson2/tdd-corner#advent2020
+
 Replit Invite: (On request)
