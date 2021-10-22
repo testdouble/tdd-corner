@@ -21,9 +21,10 @@ Again to reiterate - this is practice and hopefully fun, we're not trying to shi
 
 # Logistics
 
-You might need
+You might need:
 1. A github account
 1. A replit.com account (can be linked through github)
+1. VSCode with the LiveShare extension https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack
 
 ## Mob Programming
 If the numbers permit, we'll do a mob programming style.
