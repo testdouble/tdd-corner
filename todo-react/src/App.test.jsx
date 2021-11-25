@@ -28,13 +28,25 @@ it('will render a submit button', () => {
   expect(submit).toBeTruthy()
 })
 
-it('takes submitted input and adds a todo item', () => {
-  const app = render(<App />);
-  const input = app.queryByTestId("new_todo_input")
-  fireEvent.change(input, {target: { value: "Finish This Test"} });
-  app.queryByTestId("new_todo_submit").click()
+describe('todo submission', () => {
+  it('takes submitted input and adds a todo item', () => {
+    const app = render(<App />);
+    const input = app.queryByTestId("new_todo_input")
+    fireEvent.change(input, {target: { value: "Finish This Test"} });
+    app.queryByTestId("new_todo_submit").click()
 
-  const list = app.queryByTestId("todos")
-  expect(list.children.length).toEqual(1)
-  //expect(list.children[0].textContent).toEqual('Finish This Test');
+    const list = app.queryByTestId("todos")
+    expect(list.children.length).toEqual(1)
+  })
+
+  it('clears the input box after submission', () => {
+    const app = render(<App />);
+    const input = app.queryByTestId("new_todo_input")
+    fireEvent.change(input, {target: { value: "Finish This Test"} });
+    app.queryByTestId("new_todo_submit").click()
+
+    expect(input.value).toEqual("")
+  })
 })
+
+// test that empty submissions don't work
