@@ -6,8 +6,10 @@ export default () => {
   const [todos, setTodos] = useState([]);
 
   const handleClick = () => {
-    setTodos(todos => [...todos, newTodo]);
-    setNewTodo('');
+    if(newTodo)  {
+      setTodos(todos => [...todos, newTodo]);
+      setNewTodo('');
+    }
   }
 
   return (

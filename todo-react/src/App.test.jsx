@@ -4,49 +4,65 @@
 import React from "react";
 
 import {
-  fireEvent,
   render,
+  screen,
 } from '@testing-library/react'
+
+import userEvent from '@testing-library/user-event'
 
 import App from "./app";
 
-it('will render a todo list oh yes', () => {
-  const output = render(<App />);
-  const ul = output.queryByTestId("todos")
-  expect(ul).toBeTruthy()
-});
+describe('app', () => {
+  let todoList, newTodoInput, newTodoSubmit;
 
-it('will render a place to add more todos', () => {
-  const output = render(<App />);
-  const input = output.queryByTestId("new_todo_input")
-  expect(input).toBeTruthy()
-})
-
-it('will render a submit button', () => {
-  const output = render(<App />);
-  const submit = output.queryByTestId("new_todo_submit")
-  expect(submit).toBeTruthy()
-})
-
-describe('todo submission', () => {
-  it('takes submitted input and adds a todo item', () => {
-    const app = render(<App />);
-    const input = app.queryByTestId("new_todo_input")
-    fireEvent.change(input, {target: { value: "Finish This Test"} });
-    app.queryByTestId("new_todo_submit").click()
-
-    const list = app.queryByTestId("todos")
-    expect(list.children.length).toEqual(1)
+  beforeEach(() => {
+    render(<App />)
+    todoList = screen.queryByTestId("todos")
+    newTodoInput = screen.queryByTestId("new_todo_input")
+    newTodoSubmit = screen.queryByTestId("new_todo_submit")
   })
 
-  it('clears the input box after submission', () => {
-    const app = render(<App />);
-    const input = app.queryByTestId("new_todo_input")
-    fireEvent.change(input, {target: { value: "Finish This Test"} });
-    app.queryByTestId("new_todo_submit").click()
+  it('will render a todo list oh yes', () => {
+    expect(todoList).toBeTruthy()
+  });
 
-    expect(input.value).toEqual("")
+  it('will render a place to add more todos', () => {
+    expect(newTodoInput).toBeTruthy()
+  })
+
+  it('will render a submit button', () => {
+    expect(newTodoSubmit).toBeTruthy()
+  })
+
+  describe('todo submission', () => {
+    beforeEach(() => {
+      userEvent.type(newTodoInput, "Finish This Test")
+      userEvent.click(newTodoSubmit)
+    })
+
+    it('takes submitted newTodoInput and adds a todo item', () => {
+      expect(todoList.children.length).toEqual(1)
+    })
+
+    it('clears the input box after submission', () => {
+      expect(newTodoInput.value).toEqual("")
+    })
+  })
+
+  it('surrounding whitespace is not included in todo item', () => {
+    userEvent.type(newTodoInput, "    Finish This Test      ");
+    userEvent.click(newTodoSubmit);
+
+    const firstChild = todoList.children[0];
+    expect(firstChild.textContent).toEqual("Finish This Test");
+  })
+
+  describe('invalid submissions', () => {
+    it('empty string does not create an item', () => {
+      userEvent.type(newTodoInput, "{selectall}{del}")
+      userEvent.click(newTodoSubmit);
+
+      expect(todoList.children.length).toEqual(0);
+    })
   })
 })
-
-// test that empty submissions don't work
