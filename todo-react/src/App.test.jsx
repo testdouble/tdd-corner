@@ -7,6 +7,7 @@ import {
   render,
   screen,
 } from '@testing-library/react'
+import "@testing-library/jest-dom" // For focus matcher
 
 import userEvent from '@testing-library/user-event'
 
@@ -34,7 +35,12 @@ describe('app', () => {
     expect(newTodoSubmit).toBeTruthy()
   })
 
+  it('will focus on the todo item', () => {
+    expect(newTodoInput).toHaveFocus();
+  })
+
   describe('todo submission', () => {
+    // click happy paths
     beforeEach(() => {
       userEvent.type(newTodoInput, "Finish This Test")
       userEvent.click(newTodoSubmit)
@@ -49,6 +55,16 @@ describe('app', () => {
     })
   })
 
+  describe('todo keyboard submission', () => {
+    // enter happy paths
+    it('it submits the form when the user presses enter', () => {
+      userEvent.type(newTodoInput, "Finish This Test {enter}")
+      const firstChild = todoList.children[0];
+      expect(firstChild.textContent).toEqual("Finish This Test");
+    })
+  })
+
+  // click mutate? path
   it('surrounding whitespace is not included in todo item', () => {
     userEvent.type(newTodoInput, "    Finish This Test      ");
     userEvent.click(newTodoSubmit);
@@ -58,11 +74,26 @@ describe('app', () => {
   })
 
   describe('invalid submissions', () => {
+    // click sad paths
     it('empty string does not create an item', () => {
       userEvent.type(newTodoInput, "{selectall}{del}")
       userEvent.click(newTodoSubmit);
 
       expect(todoList.children.length).toEqual(0);
     })
+
+    // enter sad paths
+    it('it does not create a list item when input is blank', () => {
+      userEvent.type(newTodoInput, "{selectall}{del}{enter}")
+
+      expect(todoList.children.length).toEqual(0);
+    })
+
+    it('it does not create a list item when input is just whitespace', () => {
+      userEvent.type(newTodoInput, "{selectall}{del}    {enter}")
+
+      expect(todoList.children.length).toEqual(0);
+    })
   })
+
 })
