@@ -1,5 +1,13 @@
 Requirements (from [TodoMVC](https://github.com/tastejs/todomvc/blob/master/app-spec.md#functionality))
 
+## Contracts
+
+- The goal of TDD Corner is to change design/implementation based on tests.
+- We prefer tests that cause us to change design vs tests that reinforce correctness
+  - It's ok to write these tests, but we want to make sure it's for feedback or to address uncertainty vs covering all the permutations
+  - We should know "Why" we are writing a particular test
+- We are ok with abstracting some complexity (using tools and helpers) to help us write tests that succinctly describe the behavior
+
 ## Functionality
 
 ### No todos
@@ -42,4 +50,4 @@ Your app should dynamically persist the todos to localStorage. If the framework 
 
 ### Routing
 
-Routing is required for all implementations. If supported by the framework, use its built-in capabilities. Otherwise, use the  [Flatiron Director](https://github.com/flatiron/director) routing library located in the `/assets` folder. The following routes should be implemented: `#/` (all - default), `#/active` and `#/completed` (`#!/` is also allowed). When the route changes, the todo list should be filtered on a model level and the `selected` class on the filter links should be toggled. When an item is updated while in a filtered state, it should be updated accordingly. E.g. if the filter is `Active` and the item is checked, it should be hidden. Make sure the active filter is persisted on reload.
+Routing is required for all implementations. If supported by the framework, use its built-in capabilities. Otherwise, use the [Flatiron Director](https://github.com/flatiron/director) routing library located in the `/assets` folder. The following routes should be implemented: `#/` (all - default), `#/active` and `#/completed` (`#!/` is also allowed). When the route changes, the todo list should be filtered on a model level and the `selected` class on the filter links should be toggled. When an item is updated while in a filtered state, it should be updated accordingly. E.g. if the filter is `Active` and the item is checked, it should be hidden. Make sure the active filter is persisted on reload.

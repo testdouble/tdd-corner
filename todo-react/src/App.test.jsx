@@ -39,7 +39,7 @@ describe('app', () => {
     expect(newTodoInput).toHaveFocus();
   })
 
-  describe('todo submission', () => {
+  describe('todo submission with button click (this is our normal case)', () => {
     // click happy paths
     beforeEach(() => {
       userEvent.type(newTodoInput, "Finish This Test")
@@ -55,7 +55,7 @@ describe('app', () => {
     })
   })
 
-  describe('todo keyboard submission', () => {
+  describe('todo keyboard submission - just make sure enter works', () => {
     // enter happy paths
     it('it submits the form when the user presses enter', () => {
       userEvent.type(newTodoInput, "Finish This Test {enter}")
@@ -64,7 +64,6 @@ describe('app', () => {
     })
   })
 
-  // click mutate? path
   it('surrounding whitespace is not included in todo item', () => {
     userEvent.type(newTodoInput, "    Finish This Test      ");
     userEvent.click(newTodoSubmit);
@@ -74,17 +73,8 @@ describe('app', () => {
   })
 
   describe('invalid submissions', () => {
-    // click sad paths
-    it('empty string does not create an item', () => {
-      userEvent.type(newTodoInput, "{selectall}{del}")
-      userEvent.click(newTodoSubmit);
-
-      expect(todoList.children.length).toEqual(0);
-    })
-
-    // enter sad paths
     it('it does not create a list item when input is blank', () => {
-      userEvent.type(newTodoInput, "{selectall}{del}{enter}")
+      userEvent.type(newTodoInput, "{enter}")
 
       expect(todoList.children.length).toEqual(0);
     })
@@ -95,5 +85,4 @@ describe('app', () => {
       expect(todoList.children.length).toEqual(0);
     })
   })
-
 })
