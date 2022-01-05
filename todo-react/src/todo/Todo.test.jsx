@@ -79,12 +79,7 @@ describe("todo list", () => {
     })
 
     it('checks all the To Do items', () => {
-
+      expect(true).toEqual(false)
     })
   })
-
-  describe('', () => {
-
-  })
-
 })

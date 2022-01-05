@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-export default () => {
-    return (
-        <>
-          <li><input type="checkbox" /></li>
-        </>
-    );
+export default ({ text, checked, onChange=(() => {}) }) => {
+  return (
+      <>
+        <li><input type="checkbox" checked={checked} onChange={onChange}/>{ text }</li>
+      </>
+  );
 }
