@@ -66,4 +66,6 @@ describe("app", () => {
     userEvent.click(checkbox);
     expect(handler).toBeCalled();
   });
+
+
 });

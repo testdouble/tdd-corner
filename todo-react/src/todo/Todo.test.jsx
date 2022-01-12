@@ -3,12 +3,16 @@
  */
 import React from "react";
 import { unmountComponentAtNode } from "react-dom";
-
+// import { within }
 import {
   render,
-  screen
-} from '@testing-library/react'
+  screen,
+  within
+} from '@testing-library/react';
 
+import "@testing-library/jest-dom" // For focus matcher
+
+import userEvent from '@testing-library/user-event'
 import Todo from "./todo";
 
 let container = null;
@@ -79,7 +83,20 @@ describe("todo list", () => {
     })
 
     it('checks all the To Do items', () => {
-      expect(true).toEqual(false)
-    })
+      // expect(true).toEqual(false)
+      const items = [
+        'a', 'b', 'c'
+      ];
+
+      const output = render(<Todo items={items}/>);
+      const markAllCheckbox = screen.queryByTestId('mark_all_checkbox')
+      userEvent.click(markAllCheckbox);
+
+      const todos = screen.queryByTestId("todos")
+      const checkboxes = within(todos).getAllByRole('checkbox')
+      checkboxes.forEach((cb) => {
+        expect(cb).toBeChecked();
+      });
+    });
   })
 })
