@@ -12,7 +12,7 @@ export default () => {
   const addNewTodo = () => {
     const cleanedTodo = cleanTodo(newTodo)
     if(cleanedTodo)  {
-      setTodos(todos => [...todos, cleanedTodo]);
+      setTodos(todos => [...todos, {value: cleanedTodo}]);
       setNewTodo('');
     }
   }
@@ -25,11 +25,15 @@ export default () => {
     }
   }
 
+  const handleOnMarkAllToggled = () => {
+
+  }
+
   return (
     <>
         <input data-testid="new_todo_input" id="new_todo_input" autoFocus value={newTodo} onChange={(e) => { setNewTodo(e.target.value) }} onKeyPress={handleKeyPress} />
         <input type="submit" data-testid="new_todo_submit" onClick={handleClick}/>
-      <Todo items={ todos } />
+      <Todo items={ todos } onMarkAllToggled={handleOnMarkAllToggled} />
     </>
   );
 };

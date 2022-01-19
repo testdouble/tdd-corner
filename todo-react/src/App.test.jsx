@@ -85,4 +85,23 @@ describe('app', () => {
       expect(todoList.children.length).toEqual(0);
     })
   })
+
+
+  it('checks all the To Do items', () => {
+    let items = [
+      {value: 'a', checked: false},
+      {value: 'b', checked: false},
+      {value: 'c', checked: false}
+    ];
+
+   render(<Todo items={items}/>);
+    const markAllCheckbox = screen.queryByTestId('mark_all_checkbox')
+    userEvent.click(markAllCheckbox);
+
+    const todos = screen.queryByTestId("todos")
+    const checkboxes = within(todos).getAllByRole('checkbox')
+    checkboxes.forEach((cb) => {
+      expect(cb).toBeChecked();
+    });
+  });
 })

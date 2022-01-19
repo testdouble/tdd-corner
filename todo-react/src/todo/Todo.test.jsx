@@ -32,46 +32,54 @@ describe("todo list", () => {
   });
 
   describe("when the list is empty", () => {
-      it("renders a list with no items", () => {
-        const list = []
-        const output = render(<Todo items={list}/>, container);
-        const ul = output.queryByTestId("todos")
-        expect(ul.children.length).toEqual(0)
-      });
+    it("renders a list with no items", () => {
+      const list = []
+      const output = render(<Todo items={list}/>, container);
+      const ul = output.queryByTestId("todos")
+      expect(ul.children.length).toEqual(0)
+    });
   });
 
   describe('when the list has one item', () => {
     it('renders a list with one item', () => {
-      const list = ['a list item']
+      const list = [{value: 'a list item', checked: false}];
       const output = render(<Todo items={list}/>, container);
       const ul = output.queryByTestId("todos")
       expect(ul.children.length).toEqual(1)
     })
 
     it('renders a list item with content', () => {
-      const list = ['a list item']
+      const list = [{value: 'a list item', checked: false}];
       const output = render(<Todo items={list}/>, container);
       const ul = output.queryByTestId("todos")
       expect(ul.children.length).toEqual(1)
       const firstChild = ul.children[0];
-      expect(firstChild.textContent).toEqual(list[0]);
+      expect(firstChild.textContent).toEqual(list[0].value);
     });
   })
 
   describe('when the list has multiple items', () => {
     it('renders a list with multiple items', () => {
-      const list = ['a list item', 'another item']
+      const list = [{value: 'a list item'}, {value: 'another item'}]
       const output = render(<Todo items={list}/>, container);
       const ul = output.queryByTestId("todos")
       expect(ul.children.length).toEqual(2)
     })
 
     it('renders a list item with content', () => {
-      const list = ['one', 'two']
+      const list = [{value: 'one'}, {value: 'two'}]
       const output = render(<Todo items={list}/>, container);
       const ul = output.queryByTestId("todos")
       expect(ul.children[0].textContent).toEqual('one');
       expect(ul.children[1].textContent).toEqual('two');
+    });
+
+    it('renders a list item with some of the items checked', () => {
+      const list = [{value: 'one'}, {value: 'two', checked: true}]
+      const output = render(<Todo items={list}/>, container);
+      const ul = output.queryByTestId("todos")
+      expect(within(ul).getAllByRole('checkbox')[0]).not.toBeChecked()
+      expect(within(ul).getAllByRole('checkbox')[1]).toBeChecked()
     });
   })
 
@@ -82,21 +90,16 @@ describe("todo list", () => {
       expect(markAllCheckbox).toBeTruthy()
     })
 
-    it('checks all the To Do items', () => {
-      // expect(true).toEqual(false)
-      const items = [
-        'a', 'b', 'c'
-      ];
+    it('callsback the callback', () => {
+      const items = [];
+      const cb = jest.fn();
 
-      const output = render(<Todo items={items}/>);
+      const output = render(<Todo items={items} onMarkAllToggled={cb} />);
       const markAllCheckbox = screen.queryByTestId('mark_all_checkbox')
       userEvent.click(markAllCheckbox);
 
-      const todos = screen.queryByTestId("todos")
-      const checkboxes = within(todos).getAllByRole('checkbox')
-      checkboxes.forEach((cb) => {
-        expect(cb).toBeChecked();
-      });
-    });
+      expect(cb).toHaveBeenCalled();
+    })
+
   })
 })
