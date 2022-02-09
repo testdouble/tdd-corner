@@ -4,7 +4,7 @@ import useTodos from './useTodos'
 
 export default () => {
   const [newTodo, setNewTodo] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [todos, addTodoItem] = useTodos();
 
   const cleanTodo = (todo) => {
      return todo.trim();
@@ -12,8 +12,8 @@ export default () => {
 
   const addNewTodo = () => {
     const cleanedTodo = cleanTodo(newTodo)
-    if(cleanedTodo)  {
-      setTodos(useTodos.addTodoItem(todos, cleanedTodo));
+    if(cleanedTodo) {
+      setTodos(addTodoItem(cleanedTodo));
       setNewTodo('');
     }
   }

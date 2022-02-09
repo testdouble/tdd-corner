@@ -1,8 +1,15 @@
 import useTodos from './useTodos'
+import {renderHook, act} from '@testing-library/react-hooks'
 
 describe('creating todos', () => {
   it('adds one to an empty list',() => {
-    expect(useTodos.addTodoItem([], 'new item')).toEqual([{value: 'new item', checked: false}])
+    const { result } = renderHook(() => useTodos());
+    const [todos, addTodoItem] = result.current;
+    act(() => {
+      addTodoItem('new item')
+    })
+    const [newTodos, _] = result.current;
+    expect(newTodos).toEqual([{value: 'new item', checked: false}])
   })
 
   it('adds one to an existing list', () => {

@@ -1,8 +1,20 @@
+import { useState } from "react";
 
-const addTodoItem = (list, itemValue) => {
+
+const useTodos = () => {
+  const [todos, setTodos] = useState([]);
+
+  const addTodoItem = (itemValue) => {
+    setTodos([
+      ...todos,
+      {value: itemValue, checked: false}
+    ]);
+  };
+  
   return [
-    ...list,
-   {value: itemValue, checked: false}
+    todos,
+    addTodoItem,
   ]
 }
-export default {addTodoItem}
+
+export default useTodos
