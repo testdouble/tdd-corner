@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 
-const useTodos = () => {
-  const [todos, setTodos] = useState([]);
+const useTodos = (list = []) => {
+  const [todos, setTodos] = useState(list);
 
   const addTodoItem = (itemValue) => {
     setTodos([
@@ -10,11 +10,16 @@ const useTodos = () => {
       {value: itemValue, checked: false}
     ]);
   };
-  
-  return [
+
+  const checkAllTodos = () => {
+    setTodos(todos => todos.map(t => ({...t, checked: true})))
+  }
+
+  return {
     todos,
     addTodoItem,
-  ]
+    checkAllTodos
+  }
 }
 
 export default useTodos

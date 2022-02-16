@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Todo from "./todo";
+import TodoList from "./todo";
 import useTodos from './useTodos'
 
 export default () => {
   const [newTodo, setNewTodo] = useState("");
-  const [todos, addTodoItem] = useTodos();
+  const { todos, addTodoItem } = useTodos();
 
   const cleanTodo = (todo) => {
      return todo.trim();
@@ -13,7 +13,7 @@ export default () => {
   const addNewTodo = () => {
     const cleanedTodo = cleanTodo(newTodo)
     if(cleanedTodo) {
-      setTodos(addTodoItem(cleanedTodo));
+      addTodoItem(cleanedTodo);
       setNewTodo('');
     }
   }
@@ -34,7 +34,7 @@ export default () => {
     <>
       <input data-testid="new_todo_input" id="new_todo_input" autoFocus value={newTodo} onChange={(e) => { setNewTodo(e.target.value) }} onKeyPress={handleKeyPress} />
       <input type="submit" data-testid="new_todo_submit" onClick={handleClick}/>
-      <Todo items={ todos } onMarkAllToggled={handleOnMarkAllToggled} />
+      <TodoList items={ todos } onMarkAllToggled={handleOnMarkAllToggled} />
     </>
   );
 };

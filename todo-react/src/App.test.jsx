@@ -87,14 +87,16 @@ describe('app', () => {
   })
 
 
-  xit('checks all the To Do items', () => {
+  it('checks all the To Do items', () => {
+    // setup todo items
     let items = [
       {value: 'a', checked: false},
       {value: 'b', checked: false},
       {value: 'c', checked: false}
     ];
 
-   render(<Todo items={items}/>);
+    // How do we hook into the "mark all checkbox" from App.jsx? Should we?
+   render(<TodoList items={items}/>);
     const markAllCheckbox = screen.queryByTestId('mark_all_checkbox')
     userEvent.click(markAllCheckbox);
 

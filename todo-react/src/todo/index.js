@@ -1,3 +1,3 @@
-import Todo from "./Todo";
+import TodoList from "./TodoList";
 
-export default Todo;
+export default TodoList;
