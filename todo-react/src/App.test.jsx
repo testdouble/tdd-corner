@@ -6,6 +6,7 @@ import React from "react";
 import {
   render,
   screen,
+  within,
 } from '@testing-library/react'
 import "@testing-library/jest-dom" // For focus matcher
 
@@ -86,8 +87,20 @@ describe('app', () => {
     })
   })
 
+  it('checks a To Do item', () => {
+    // Type in box
+    userEvent.type(newTodoInput, "    Finish This Test      ");
+    // Click 'Submit'
+    userEvent.click(newTodoSubmit);
 
-  it('checks all the To Do items', () => {
+    const itemCheckbox = within(todoList).getByRole('checkbox')
+    // Check the actual box
+    userEvent.click(itemCheckbox)
+    // Check that item is checked
+    expect(itemCheckbox).toBeChecked()
+  });
+
+  xit('checks all the To Do items', () => {
     // setup todo items
     let items = [
       {value: 'a', checked: false},

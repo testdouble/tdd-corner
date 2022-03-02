@@ -15,10 +15,20 @@ const useTodos = (list = []) => {
     setTodos(todos => todos.map(t => ({...t, checked: true})))
   }
 
+  const toggleTodo = (togglee) => {
+    setTodos(t => t.map(todo => {
+      if (togglee.value === todo.value ) {
+        return {...todo,checked: !todo.checked}
+      }
+      return todo
+    }))
+  }
+
   return {
     todos,
     addTodoItem,
-    checkAllTodos
+    checkAllTodos,
+    toggleTodo
   }
 }
 

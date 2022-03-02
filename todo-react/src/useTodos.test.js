@@ -45,3 +45,21 @@ describe('checks all todos', () => {
     ])
   })
 })
+
+describe('checks a single todo', () => {
+  it('can be checked', () => {
+    const existing = {value: "stuff", checked: false};
+    const { result } = renderHook(() => useTodos([existing]));
+
+    const { toggleTodo } = result.current;
+    act(() => {
+      toggleTodo(existing);
+    })
+
+    const { todos } = result.current;
+
+    expect(todos).toEqual([
+      {value: "stuff", checked: true}
+    ]);
+  })
+})

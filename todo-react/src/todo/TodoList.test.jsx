@@ -83,12 +83,6 @@ describe("todo list", () => {
     });
   })
 
-  describe('mark one as complete', () => {
-    it('', () => {
-      expect(true).toEqual(false)
-    })
-  });
-
   xdescribe('mark all as complete', () => {
     it('renders a checkbox', () => {
       const output = render(<TodoList />);
