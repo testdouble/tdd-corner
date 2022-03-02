@@ -3,13 +3,10 @@
  */
 import React from "react";
 
-import {
-  render,
-  screen,
-} from '@testing-library/react'
-import "@testing-library/jest-dom" // For focus matcher
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom"; // For focus matcher
 
-import userEvent from '@testing-library/user-event'
+import userEvent from "@testing-library/user-event";
 
 import TodoItem from "./TodoItem";
 
@@ -28,35 +25,35 @@ describe("app", () => {
 
   it("has todo text", () => {
     const todoText = "I am a todo.";
-    render(<TodoItem text={ todoText } />);
+    render(<TodoItem text={todoText} />);
 
     const listItem = screen.getByRole("listitem");
-    expect(listItem.textContent).toEqual(todoText)
+    expect(listItem.textContent).toEqual(todoText);
   });
 
   it("starts out checked", () => {
-    render(<TodoItem checked={true} />)
+    render(<TodoItem checked={true} />);
     const checkbox = screen.getByRole("checkbox");
     expect(checkbox).toBeTruthy();
 
     expect(checkbox).toBeChecked();
-  })
+  });
 
   it("starts out unchecked", () => {
-    render(<TodoItem checked={false} />)
+    render(<TodoItem checked={false} />);
     const checkbox = screen.getByRole("checkbox");
 
     expect(checkbox).not.toBeChecked();
-  })
+  });
 
-  it("calls the handler when checked",() => {
-    const handler = jest.fn()
-    render(<TodoItem onChange={ handler } checked={false} />)
+  it("calls the handler when checked", () => {
+    const handler = jest.fn();
+    render(<TodoItem onChange={handler} checked={false} />);
     const checkbox = screen.getByRole("checkbox");
 
-    userEvent.click(checkbox)
-    expect(handler).toBeCalled()
-  })
+    userEvent.click(checkbox);
+    expect(handler).toBeCalled();
+  });
 
   it("calls the handler when unchecked", () => {
     const handler = jest.fn();
@@ -66,6 +63,4 @@ describe("app", () => {
     userEvent.click(checkbox);
     expect(handler).toBeCalled();
   });
-
-
 });
