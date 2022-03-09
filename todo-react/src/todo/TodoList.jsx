@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import TodoItem from "./TodoItem";
 
 export default function Todo(props) {
-  const { items = [], onMarkAllToggled } = props;
+  const { items = [], checkAllTodos, toggleTodo } = props;
 
   return (
     <>
       <input
         type="checkbox"
         data-testid="mark_all_checkbox"
-        onChange={onMarkAllToggled}
+        onChange={(e) => {
+          checkAllTodos(e.target.checked);
+        }}
       ></input>
       <ul data-testid="todos">
         {items.map((item, i) => {
@@ -18,9 +20,7 @@ export default function Todo(props) {
               key={i}
               text={item.value}
               checked={item.checked}
-              onChange={(event) => {
-                event.target.checked = true;
-              }}
+              onChange={() => toggleTodo(item)}
             />
           );
         })}

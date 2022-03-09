@@ -4,7 +4,7 @@ import useTodos from "./useTodos";
 
 export default () => {
   const [newTodo, setNewTodo] = useState("");
-  const { todos, addTodoItem } = useTodos();
+  const { todos, addTodoItem, toggleTodo, checkAllTodos } = useTodos();
 
   const cleanTodo = (todo) => {
     return todo.trim();
@@ -26,8 +26,6 @@ export default () => {
     }
   };
 
-  const handleOnMarkAllToggled = () => {};
-
   return (
     <>
       <input
@@ -45,7 +43,11 @@ export default () => {
         data-testid="new_todo_submit"
         onClick={handleClick}
       />
-      <TodoList items={todos} onMarkAllToggled={handleOnMarkAllToggled} />
+      <TodoList
+        items={todos}
+        checkAllTodos={checkAllTodos}
+        toggleTodo={toggleTodo}
+      />
     </>
   );
 };

@@ -38,13 +38,32 @@ describe("checks all todos", () => {
 
     const { checkAllTodos } = result.current;
     act(() => {
-      checkAllTodos();
+      checkAllTodos(true);
     });
     const { todos } = result.current;
 
     expect(todos).toEqual([
       { value: "stuff", checked: true },
       { value: "baba booey", checked: true },
+    ]);
+  });
+
+  it("unchecks all todos", () => {
+    const existing = [
+      { value: "stuff", checked: true },
+      { value: "baba booey", checked: true },
+    ];
+    const { result } = renderHook(() => useTodos(existing));
+
+    const { checkAllTodos } = result.current;
+    act(() => {
+      checkAllTodos(false);
+    });
+    const { todos } = result.current;
+
+    expect(todos).toEqual([
+      { value: "stuff", checked: false },
+      { value: "baba booey", checked: false },
     ]);
   });
 });

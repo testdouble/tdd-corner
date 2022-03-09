@@ -96,23 +96,54 @@ describe("app", () => {
     expect(itemCheckbox).toBeChecked();
   });
 
-  xit("checks all the To Do items", () => {
-    // setup todo items
-    let items = [
-      { value: "a", checked: false },
-      { value: "b", checked: false },
-      { value: "c", checked: false },
-    ];
+  it("checks all the To Do items", () => {
+    // Type in box
+    userEvent.type(newTodoInput, "    Finish This Test      ");
+    // Click 'Submit',-.
+    userEvent.click(newTodoSubmit);
 
-    // How do we hook into the "mark all checkbox" from App.jsx? Should we?
-    render(<TodoList items={items} />);
-    const markAllCheckbox = screen.queryByTestId("mark_all_checkbox");
-    userEvent.click(markAllCheckbox);
+    // Type in box
+    userEvent.type(newTodoInput, "    Finish This Second Test      ");
+    // Click 'Submit',-.
+    userEvent.click(newTodoSubmit);
+
+    // find check-all checkbox
+    const newCheckAllCheckbox = screen.queryByTestId("mark_all_checkbox");
+
+    // check it
+    userEvent.click(newCheckAllCheckbox);
 
     const todos = screen.queryByTestId("todos");
     const checkboxes = within(todos).getAllByRole("checkbox");
     checkboxes.forEach((cb) => {
       expect(cb).toBeChecked();
+    });
+  });
+
+  it("unchecks all the To Do items", () => {
+    // Type in box
+    userEvent.type(newTodoInput, "    Finish This Test      ");
+    // Click 'Submit',-.
+    userEvent.click(newTodoSubmit);
+
+    // Type in box
+    userEvent.type(newTodoInput, "    Finish This Second Test      ");
+    // Click 'Submit',-.
+    userEvent.click(newTodoSubmit);
+
+    // find check-all checkbox
+    const newCheckAllCheckbox = screen.queryByTestId("mark_all_checkbox");
+
+    // check it
+    userEvent.click(newCheckAllCheckbox);
+
+    // uncheck it
+    userEvent.click(newCheckAllCheckbox);
+
+    const todos = screen.queryByTestId("todos");
+    const checkboxes = within(todos).getAllByRole("checkbox");
+    checkboxes.forEach((cb) => {
+      expect(cb).not.toBeChecked();
     });
   });
 });
