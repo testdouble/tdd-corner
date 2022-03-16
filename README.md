@@ -1,5 +1,5 @@
 # Current
-Time: Weds at 1230 ET (Check TD calendar and invite yourself)
+Time: Weds at 1400 ET (Check TD calendar and invite yourself)
 
 Exercise: A react TODO app
 
