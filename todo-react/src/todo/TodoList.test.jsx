@@ -79,7 +79,7 @@ describe("todo list", () => {
     });
   });
 
-  xdescribe("mark all as complete", () => {
+  describe("mark all as complete", () => {
     it("renders a checkbox", () => {
       const output = render(<TodoList />);
       const markAllCheckbox = screen.queryByTestId("mark_all_checkbox");
@@ -90,7 +90,7 @@ describe("todo list", () => {
       const items = [];
       const cb = jest.fn();
 
-      const output = render(<TodoList items={items} onMarkAllToggled={cb} />);
+      const output = render(<TodoList items={items} checkAllTodos={cb} />);
       const markAllCheckbox = screen.queryByTestId("mark_all_checkbox");
       userEvent.click(markAllCheckbox);
 

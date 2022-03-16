@@ -14,13 +14,13 @@ export default function Todo(props) {
         }}
       ></input>
       <ul data-testid="todos">
-        {items.map((item, i) => {
+        {items.map((item, index) => {
           return (
             <TodoItem
-              key={i}
+              key={index}
               text={item.value}
               checked={item.checked}
-              onChange={() => toggleTodo(item)}
+              onChange={() => toggleTodo(index)}
             />
           );
         })}

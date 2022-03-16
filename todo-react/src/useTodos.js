@@ -11,15 +11,10 @@ const useTodos = (list = []) => {
     setTodos((todos) => todos.map((t) => ({ ...t, checked })));
   };
 
-  const toggleTodo = (togglee) => {
-    setTodos((t) =>
-      t.map((todo) => {
-        if (togglee.value === todo.value) {
-          return { ...todo, checked: !todo.checked };
-        }
-        return todo;
-      })
-    );
+  const toggleTodo = (toggleeIndex) => {
+    todos[toggleeIndex].checked = !todos[toggleeIndex].checked
+
+    setTodos([...todos]);
   };
 
   return {

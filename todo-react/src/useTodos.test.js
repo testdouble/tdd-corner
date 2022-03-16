@@ -75,11 +75,39 @@ describe("checks a single todo", () => {
 
     const { toggleTodo } = result.current;
     act(() => {
-      toggleTodo(existing);
+      toggleTodo(0);
     });
 
     const { todos } = result.current;
 
     expect(todos).toEqual([{ value: "stuff", checked: true }]);
   });
+});
+
+describe("multiple todo items with the same value", () => {
+  it("only checks one", () => {
+    const existing = [
+      { value: "stuff", checked: false },
+      { value: "stuff", checked: false }
+    ];
+    const { result } = renderHook(() => useTodos(existing));
+
+    const { toggleTodo } = result.current;
+    act(() => {
+      toggleTodo(0);
+    });
+    const { todos } = result.current;
+
+    expect(todos).toEqual([
+      { value: "stuff", checked: true },
+      { value: "stuff", checked: false }
+    ]);
+  });
+});
+
+
+describe("areAllChecked", () => {
+  it("will be all checked if all todos are checked", () => {
+    expect(areAllChecked()).toEqual(true);
+  })
 });
