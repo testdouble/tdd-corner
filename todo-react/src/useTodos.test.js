@@ -88,7 +88,7 @@ describe("multiple todo items with the same value", () => {
   it("only checks one", () => {
     const existing = [
       { value: "stuff", checked: false },
-      { value: "stuff", checked: false }
+      { value: "stuff", checked: false },
     ];
     const { result } = renderHook(() => useTodos(existing));
 
@@ -100,7 +100,7 @@ describe("multiple todo items with the same value", () => {
 
     expect(todos).toEqual([
       { value: "stuff", checked: true },
-      { value: "stuff", checked: false }
+      { value: "stuff", checked: false },
     ]);
   });
 });
@@ -113,7 +113,7 @@ describe("areAllChecked", () => {
     const { areAllChecked } = result.current;
 
     expect(areAllChecked()).toEqual(true);
-  })
+  });
 });
 
 describe("clearing checked todos", () => {
@@ -121,13 +121,13 @@ describe("clearing checked todos", () => {
     const existing = [{ value: "stuff", checked: true }];
     const { result } = renderHook(() => useTodos(existing));
 
-    const { clearAllChecked } = result.current
+    const { clearAllChecked } = result.current;
 
     act(() => {
       clearAllChecked();
     });
 
-    const { todos } = result.current
+    const { todos } = result.current;
     expect(todos).toEqual([]);
   });
 
@@ -139,13 +139,13 @@ describe("clearing checked todos", () => {
     ];
     const { result } = renderHook(() => useTodos(existing));
 
-    const { clearAllChecked } = result.current
+    const { clearAllChecked } = result.current;
 
     act(() => {
       clearAllChecked();
     });
 
-    const { todos } = result.current
+    const { todos } = result.current;
     expect(todos).toEqual([{ value: "work", checked: false }]);
   });
 });

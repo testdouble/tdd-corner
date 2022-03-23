@@ -12,7 +12,7 @@ const useTodos = (list = []) => {
   };
 
   const toggleTodo = (toggleeIndex) => {
-    todos[toggleeIndex].checked = !todos[toggleeIndex].checked
+    todos[toggleeIndex].checked = !todos[toggleeIndex].checked;
 
     setTodos([...todos]);
   };
@@ -22,10 +22,8 @@ const useTodos = (list = []) => {
   };
 
   const clearAllChecked = () => {
-    setTodos(
-      todos.filter((t) => !t.checked )
-    );
-  }
+    setTodos(todos.filter((t) => !t.checked));
+  };
 
   return {
     todos,
