@@ -105,9 +105,47 @@ describe("multiple todo items with the same value", () => {
   });
 });
 
-
 describe("areAllChecked", () => {
   it("will be all checked if all todos are checked", () => {
+    const existing = [{ value: "stuff", checked: true }];
+    const { result } = renderHook(() => useTodos(existing));
+
+    const { areAllChecked } = result.current;
+
     expect(areAllChecked()).toEqual(true);
   })
+});
+
+describe("clearing checked todos", () => {
+  it("will delete a checked todo", () => {
+    const existing = [{ value: "stuff", checked: true }];
+    const { result } = renderHook(() => useTodos(existing));
+
+    const { clearAllChecked } = result.current
+
+    act(() => {
+      clearAllChecked();
+    });
+
+    const { todos } = result.current
+    expect(todos).toEqual([]);
+  });
+
+  it("will delete only checked todos", () => {
+    const existing = [
+      { value: "stuff", checked: true },
+      { value: "work", checked: false },
+      { value: "wordle", checked: true },
+    ];
+    const { result } = renderHook(() => useTodos(existing));
+
+    const { clearAllChecked } = result.current
+
+    act(() => {
+      clearAllChecked();
+    });
+
+    const { todos } = result.current
+    expect(todos).toEqual([{ value: "work", checked: false }]);
+  });
 });

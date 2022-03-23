@@ -11,13 +11,19 @@ import userEvent from "@testing-library/user-event";
 import App from "./app";
 
 describe("app", () => {
-  let todoList, newTodoInput, newTodoSubmit;
+  let todoList,
+    newTodoInput,
+    newTodoSubmit,
+    markAllCheckedBox,
+    clearCompletedTodosBtn;
 
   beforeEach(() => {
     render(<App />);
     todoList = screen.queryByTestId("todos");
     newTodoInput = screen.queryByTestId("new_todo_input");
     newTodoSubmit = screen.queryByTestId("new_todo_submit");
+    markAllCheckedBox = screen.queryByTestId("mark_all_checkbox");
+    clearCompletedTodosBtn = screen.queryByTestId("clear_completed_todos");
   });
 
   it("will render a todo list oh yes", () => {
@@ -144,6 +150,42 @@ describe("app", () => {
     const checkboxes = within(todos).getAllByRole("checkbox");
     checkboxes.forEach((cb) => {
       expect(cb).not.toBeChecked();
+    });
+  });
+
+  it("verifies the Mark All Checked box is checked when all the items are checked", () => {
+    // Type in box
+    userEvent.type(newTodoInput, "    Finish This Test      ");
+    // Click 'Submit',-.
+    userEvent.click(newTodoSubmit);
+
+    const itemCheckbox = within(todoList).getByRole("checkbox");
+    // Check the actual box
+    userEvent.click(itemCheckbox);
+    // Check that item is checked
+    expect(markAllCheckedBox).toBeChecked();
+  });
+
+  describe("clear completed button", () => {
+    it("exists", () => {
+      expect(clearCompletedTodosBtn).toBeTruthy();
+    });
+
+    it("clears a completed todo", () => {
+      // Type in box
+      userEvent.type(newTodoInput, "    Finish This Test      ");
+      // Click 'Submit'
+      userEvent.click(newTodoSubmit);
+
+      // Check the actual box
+      const itemCheckbox = within(todoList).getByRole("checkbox");
+      userEvent.click(itemCheckbox);
+
+      // Click the clear completed todos button
+      userEvent.click(clearCompletedTodosBtn);
+
+      // Check that the todo is gone
+      expect(todoList.children.length).toEqual(0);
     });
   });
 });

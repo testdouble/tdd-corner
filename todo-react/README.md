@@ -25,7 +25,7 @@ Requirements (from [TodoMVC](https://github.com/tastejs/todomvc/blob/master/app-
 
 - [x] This checkbox toggles all the todos to the same state as itself.
 - [ ] Make sure to clear the checked state after the "Clear completed" button is clicked.
-- [ ] The "Mark all as complete" checkbox should also be updated when single todo items are checked/unchecked. Eg. When all the todos are checked it should also get checked.
+- [x] The "Mark all as complete" checkbox should also be updated when single todo items are checked/unchecked. Eg. When all the todos are checked it should also get checked.
 
 ### Item
 

@@ -17,11 +17,23 @@ const useTodos = (list = []) => {
     setTodos([...todos]);
   };
 
+  const areAllChecked = () => {
+    return todos.every((t) => t.checked);
+  };
+
+  const clearAllChecked = () => {
+    setTodos(
+      todos.filter((t) => !t.checked )
+    );
+  }
+
   return {
     todos,
     addTodoItem,
     checkAllTodos,
     toggleTodo,
+    areAllChecked,
+    clearAllChecked,
   };
 };
 
