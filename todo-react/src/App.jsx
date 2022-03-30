@@ -4,8 +4,15 @@ import useTodos from "./useTodos";
 
 export default () => {
   const [newTodo, setNewTodo] = useState("");
-  const { todos, addTodoItem, toggleTodo, checkAllTodos, areAllChecked } =
-    useTodos();
+  const {
+    todos,
+    addTodoItem,
+    toggleTodo,
+    checkAllTodos,
+    areAllChecked,
+    clearAllChecked,
+    areAnyChecked,
+  } = useTodos();
 
   const cleanTodo = (todo) => {
     return todo.trim();
@@ -50,11 +57,14 @@ export default () => {
         toggleTodo={toggleTodo}
         areAllChecked={areAllChecked()}
       />
-      <input
-        type="button"
-        value="Clear All Completed Todos"
-        data-testid="clear_completed_todos"
-      />
+      {areAnyChecked() && (
+        <input
+          type="button"
+          value="Clear All Completed Todos"
+          data-testid="clear_completed_todos"
+          onClick={clearAllChecked}
+        />
+      )}
     </>
   );
 };

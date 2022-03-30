@@ -10,12 +10,17 @@ import userEvent from "@testing-library/user-event";
 
 import App from "./app";
 
+function createTodo(todoText = "AAAAHHHHH!!!") {
+  // Type in box
+  const newTodoInput = screen.queryByTestId("new_todo_input");
+  userEvent.type(newTodoInput, todoText);
+  // Click 'Submit',
+  const newTodoSubmit = screen.queryByTestId("new_todo_submit");
+  userEvent.click(newTodoSubmit);
+}
+
 describe("app", () => {
-  let todoList,
-    newTodoInput,
-    newTodoSubmit,
-    markAllCheckedBox,
-    clearCompletedTodosBtn;
+  let todoList, newTodoInput, newTodoSubmit, markAllCheckedBox;
 
   beforeEach(() => {
     render(<App />);
@@ -23,7 +28,6 @@ describe("app", () => {
     newTodoInput = screen.queryByTestId("new_todo_input");
     newTodoSubmit = screen.queryByTestId("new_todo_submit");
     markAllCheckedBox = screen.queryByTestId("mark_all_checkbox");
-    clearCompletedTodosBtn = screen.queryByTestId("clear_completed_todos");
   });
 
   it("will render a todo list oh yes", () => {
@@ -45,8 +49,7 @@ describe("app", () => {
   describe("todo submission with button click (this is our normal case)", () => {
     // click happy paths
     beforeEach(() => {
-      userEvent.type(newTodoInput, "Finish This Test");
-      userEvent.click(newTodoSubmit);
+      createTodo();
     });
 
     it("takes submitted newTodoInput and adds a todo item", () => {
@@ -68,8 +71,7 @@ describe("app", () => {
   });
 
   it("surrounding whitespace is not included in todo item", () => {
-    userEvent.type(newTodoInput, "    Finish This Test      ");
-    userEvent.click(newTodoSubmit);
+    createTodo("    Finish This Test      ");
 
     const firstChild = todoList.children[0];
     expect(firstChild.textContent).toEqual("Finish This Test");
@@ -90,10 +92,7 @@ describe("app", () => {
   });
 
   it("checks a To Do item", () => {
-    // Type in box
-    userEvent.type(newTodoInput, "    Finish This Test      ");
-    // Click 'Submit',-.
-    userEvent.click(newTodoSubmit);
+    createTodo();
 
     const itemCheckbox = within(todoList).getByRole("checkbox");
     // Check the actual box
@@ -103,15 +102,8 @@ describe("app", () => {
   });
 
   it("checks all the To Do items", () => {
-    // Type in box
-    userEvent.type(newTodoInput, "    Finish This Test      ");
-    // Click 'Submit',-.
-    userEvent.click(newTodoSubmit);
-
-    // Type in box
-    userEvent.type(newTodoInput, "    Finish This Second Test      ");
-    // Click 'Submit',-.
-    userEvent.click(newTodoSubmit);
+    createTodo();
+    createTodo();
 
     // find check-all checkbox
     const newCheckAllCheckbox = screen.queryByTestId("mark_all_checkbox");
@@ -126,62 +118,72 @@ describe("app", () => {
     });
   });
 
-  it("unchecks all the To Do items", () => {
-    // Type in box
-    userEvent.type(newTodoInput, "    Finish This Test      ");
-    // Click 'Submit',-.
-    userEvent.click(newTodoSubmit);
+  describe("the mark all checkbox", () => {
+    it("unchecks all the To Do items", () => {
+      createTodo();
+      createTodo();
 
-    // Type in box
-    userEvent.type(newTodoInput, "    Finish This Second Test      ");
-    // Click 'Submit',-.
-    userEvent.click(newTodoSubmit);
+      // check it
+      userEvent.click(markAllCheckedBox);
 
-    // find check-all checkbox
-    const newCheckAllCheckbox = screen.queryByTestId("mark_all_checkbox");
+      // uncheck it
+      userEvent.click(markAllCheckedBox);
 
-    // check it
-    userEvent.click(newCheckAllCheckbox);
-
-    // uncheck it
-    userEvent.click(newCheckAllCheckbox);
-
-    const todos = screen.queryByTestId("todos");
-    const checkboxes = within(todos).getAllByRole("checkbox");
-    checkboxes.forEach((cb) => {
-      expect(cb).not.toBeChecked();
+      const todos = screen.queryByTestId("todos");
+      const checkboxes = within(todos).getAllByRole("checkbox");
+      checkboxes.forEach((cb) => {
+        expect(cb).not.toBeChecked();
+      });
     });
-  });
 
-  it("verifies the Mark All Checked box is checked when all the items are checked", () => {
-    // Type in box
-    userEvent.type(newTodoInput, "    Finish This Test      ");
-    // Click 'Submit',-.
-    userEvent.click(newTodoSubmit);
+    it("verifies the Mark All Checked box is checked when all the items are checked", () => {
+      createTodo();
 
-    const itemCheckbox = within(todoList).getByRole("checkbox");
-    // Check the actual box
-    userEvent.click(itemCheckbox);
-    // Check that item is checked
-    expect(markAllCheckedBox).toBeChecked();
+      const itemCheckbox = within(todoList).getByRole("checkbox");
+      // Check the actual box
+      userEvent.click(itemCheckbox);
+      // Check that item is checked
+      expect(markAllCheckedBox).toBeChecked();
+    });
+
+    it("verifies the mark all checked box is unchecked when all the todos are cleared", () => {
+      for (let i = 0; i < 10; i++) {
+        createTodo("doit" + i);
+      }
+      userEvent.click(markAllCheckedBox);
+
+      //TODO: Magic stuff
+
+      expect(markAllCheckedBox).not.toBeChecked();
+    });
   });
 
   describe("clear completed button", () => {
-    it("exists", () => {
-      expect(clearCompletedTodosBtn).toBeTruthy();
+    it("appears when items are completed", () => {
+      createTodo();
+
+      // Check the actual box
+      const itemCheckbox = within(todoList).getByRole("checkbox");
+      userEvent.click(itemCheckbox);
+
+      //Button appears!
+      const clearCompletedTodosBtn = screen.queryByTestId(
+        "clear_completed_todos"
+      );
+      expect(clearCompletedTodosBtn).toBeVisible();
     });
 
     it("clears a completed todo", () => {
-      // Type in box
-      userEvent.type(newTodoInput, "    Finish This Test      ");
-      // Click 'Submit'
-      userEvent.click(newTodoSubmit);
+      createTodo();
 
       // Check the actual box
       const itemCheckbox = within(todoList).getByRole("checkbox");
       userEvent.click(itemCheckbox);
 
       // Click the clear completed todos button
+      const clearCompletedTodosBtn = screen.queryByTestId(
+        "clear_completed_todos"
+      );
       userEvent.click(clearCompletedTodosBtn);
 
       // Check that the todo is gone

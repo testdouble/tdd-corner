@@ -52,8 +52,8 @@ A todo item has three possible interactions:
 
 ### Clear completed button
 
-- [ ] Removes completed todos when clicked.
-- [ ] Should be hidden when there are no completed todos.
+- [x] Removes completed todos when clicked.
+- [x] Should be hidden when there are no completed todos.
 
 ### Persistence
 

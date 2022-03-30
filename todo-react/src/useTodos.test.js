@@ -149,3 +149,23 @@ describe("clearing checked todos", () => {
     expect(todos).toEqual([{ value: "work", checked: false }]);
   });
 });
+
+describe("areAnyChecked", () => {
+  it("will be checked if any todos are checked", () => {
+    const existing = [{ value: "stuff", checked: true }, { value: "more", checked: false}];
+    const { result } = renderHook(() => useTodos(existing));
+
+    const { areAnyChecked } = result.current;
+
+    expect(areAnyChecked()).toEqual(true);
+  });
+
+  it("will not be checked if any todos are checked", () => {
+    const existing = [{ value: "stuff", checked: false }, { value: "more", checked: false}];
+    const { result } = renderHook(() => useTodos(existing));
+
+    const { areAnyChecked } = result.current;
+
+    expect(areAnyChecked()).toEqual(false);
+  });
+});

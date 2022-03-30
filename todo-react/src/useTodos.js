@@ -25,6 +25,12 @@ const useTodos = (list = []) => {
     setTodos(todos.filter((t) => !t.checked));
   };
 
+  const areAnyChecked = () => {
+    return todos.some((todo) => {
+      return todo.checked;
+    });
+  };
+
   return {
     todos,
     addTodoItem,
@@ -32,6 +38,7 @@ const useTodos = (list = []) => {
     toggleTodo,
     areAllChecked,
     clearAllChecked,
+    areAnyChecked,
   };
 };
 
