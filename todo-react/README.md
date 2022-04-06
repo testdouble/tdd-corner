@@ -24,17 +24,16 @@ Requirements (from [TodoMVC](https://github.com/tastejs/todomvc/blob/master/app-
 ### Mark all as complete
 
 - [x] This checkbox toggles all the todos to the same state as itself.
-- [ ] Make sure to clear the checked state after the "Clear completed" button is clicked.
+- [x] Make sure to clear the checked state after the "Clear completed" button is clicked.
 - [x] The "Mark all as complete" checkbox should also be updated when single todo items are checked/unchecked. Eg. When all the todos are checked it should also get checked.
 
 ### Item
 
 A todo item has three possible interactions:
 
-- [ ] Clicking the checkbox marks the todo as complete by updating its `completed` value and toggling the class `completed` on its parent `<li>`
-
+- [x] Clicking the checkbox marks the todo as complete by updating its `completed` value and toggling the class `completed` on its parent `<li>`
+- [x] Single-clicking makes the checky checked
 - [ ] Double-clicking the `<label>` activates editing mode, by toggling the `.editing` class on its `<li>`
-
 - [ ] Hovering over the todo shows the remove button (`.destroy`)
 
 ### Editing

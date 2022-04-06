@@ -18,6 +18,8 @@ const useTodos = (list = []) => {
   };
 
   const areAllChecked = () => {
+    if(!todos.length) return false;
+
     return todos.every((t) => t.checked);
   };
 

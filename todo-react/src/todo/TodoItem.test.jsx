@@ -39,6 +39,22 @@ describe("app", () => {
     expect(checkbox).toBeChecked();
   });
 
+  it("A completed item has a completed class", () => {
+    render(<TodoItem checked={true} />);
+
+    const li = screen.getByRole("listitem");
+
+    expect(li.className).toContain("completed");
+  });
+
+  it("An incompleted item has no completed class", () => {
+    render(<TodoItem checked={false} />);
+
+    const li = screen.getByRole("listitem");
+
+    expect(li.className).not.toContain("completed");
+  });
+
   it("starts out unchecked", () => {
     render(<TodoItem checked={false} />);
     const checkbox = screen.getByRole("checkbox");
@@ -62,5 +78,25 @@ describe("app", () => {
 
     userEvent.click(checkbox);
     expect(handler).toBeCalled();
+  });
+
+  it("clicking on the label checks the box", () => {
+    render(<TodoItem text="I am an item" checked={true} />);
+
+    const label = screen.getByLabelText("I am an item");
+    userEvent.click(label);
+
+    const checkbox = screen.getByRole("checkbox");
+    expect(checkbox).toBeChecked();
+  });
+
+  it("double clicking puts us in edit mode", () => {
+    render(<TodoItem text="edit me" checked={true} />);
+
+    const label = screen.getByLabelText("edit me");
+    userEvent.dblClick(label);
+
+    // Double-clicking the `<label>` activates editing mode, by toggling the `.editing` class on its `<li>`
+    expect(toBeInEditMode());
   });
 });

@@ -114,6 +114,16 @@ describe("areAllChecked", () => {
 
     expect(areAllChecked()).toEqual(true);
   });
+
+  it("is unchecked when there are no todos", () => {
+    const existing = []
+    const { result } = renderHook(() => useTodos(existing));
+
+    const { areAllChecked } = result.current;
+
+    expect(areAllChecked()).toEqual(false);
+  })
+
 });
 
 describe("clearing checked todos", () => {

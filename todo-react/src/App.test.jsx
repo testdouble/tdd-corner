@@ -152,7 +152,10 @@ describe("app", () => {
       }
       userEvent.click(markAllCheckedBox);
 
-      //TODO: Magic stuff
+      const clearCompletedTodosBtn = screen.queryByTestId(
+        "clear_completed_todos"
+      );
+      userEvent.click(clearCompletedTodosBtn);
 
       expect(markAllCheckedBox).not.toBeChecked();
     });
