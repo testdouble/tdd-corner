@@ -96,7 +96,38 @@ describe("app", () => {
     const label = screen.getByLabelText("edit me");
     userEvent.dblClick(label);
 
-    // Double-clicking the `<label>` activates editing mode, by toggling the `.editing` class on its `<li>`
-    expect(toBeInEditMode());
+    const li = screen.getByRole("listitem");
+    expect(li.className.split(" ")).toContain("editing");
+  });
+
+  it("double clicking, oopsie, double click again takes us out of edit mode", () => {
+    render(<TodoItem text="don't edit me" checked={true} />);
+
+    const label = screen.getByLabelText("don't edit me");
+    userEvent.dblClick(label);
+    //leave edit mode
+    userEvent.dblClick(label);
+
+    const li = screen.getByRole("listitem");
+    expect(li.className.split(" ")).not.toContain("editing");
+  });
+
+  it("double clicking presents an input", () => {
+    render(<TodoItem text="edit me" checked={true} />);
+
+    const label = screen.getByLabelText("edit me");
+    userEvent.dblClick(label);
+
+    const input = screen.getByRole("textbox");
+    expect(input).toBeTruthy();
+  });
+
+  it("label text goes away while editing", () => {
+    render(<TodoItem text="edit me" checked={true} />);
+
+    const label = screen.getByLabelText("edit me");
+    userEvent.dblClick(label);
+
+    expect(label.innerText).toEqual("");
   });
 });
