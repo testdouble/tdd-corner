@@ -42,7 +42,7 @@ A todo item has three possible interactions:
 - [ ] The edit should be saved on both blur and enter, and the `editing` class should be removed.
 - [ ] Make sure to `.trim()` the input and then check that it's not empty. If it's empty the todo should instead be destroyed.
 - [ ] If escape is pressed during the edit, the edit state should be left and any changes be discarded.
-- [ ] If an item is double clicked, don't complete it.
+- [ ] If an item is double clicked, don't complete the todo.
 
 ### Counter
 

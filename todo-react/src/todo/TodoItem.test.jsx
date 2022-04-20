@@ -125,9 +125,29 @@ describe("app", () => {
   it("label text goes away while editing", () => {
     render(<TodoItem text="edit me" checked={true} />);
 
+    const label = screen.getByText("edit me");
+    userEvent.dblClick(label);
+
+    expect(screen.queryByText("edit me")).toBeNull();
+  });
+
+  it("puts the todo item in the input", () => {
+    render(<TodoItem text="edit me" checked={true} />);
+
     const label = screen.getByLabelText("edit me");
     userEvent.dblClick(label);
 
-    expect(label.innerText).toEqual("");
+    const input = screen.getByRole("textbox");
+    expect(input.value).toEqual("edit me");
+  });
+
+  it("puts the todo item in the input", () => {
+    render(<TodoItem text="edit me" checked={true} />);
+
+    const label = screen.getByLabelText("edit me");
+    userEvent.dblClick(label);
+
+    const input = screen.getByRole("textbox");
+    expect(input).toHaveFocus();
   });
 });

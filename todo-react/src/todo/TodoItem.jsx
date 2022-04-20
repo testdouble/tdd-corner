@@ -20,8 +20,11 @@ export default ({ text, checked, onChange = () => {} }) => {
       <li className={classes.join(" ")} onDoubleClick={handleDoubleClick}>
         <label>
           <input type="checkbox" checked={checked} onChange={onChange} />
-          {text}
-          {isEditing && <input type="text" />}
+          {isEditing ? (
+            <input type="text" value={text} onChange={() => {}} />
+          ) : (
+            text
+          )}
         </label>
       </li>
     </>
