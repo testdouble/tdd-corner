@@ -12,7 +12,11 @@ export default ({ text, checked, onChange = () => {} }) => {
   }
 
   const handleDoubleClick = () => {
-    setIsEditing(!isEditing);
+    setIsEditing(true);
+  };
+
+  const handleBlur = () => {
+    setIsEditing(false);
   };
 
   return (
@@ -21,7 +25,13 @@ export default ({ text, checked, onChange = () => {} }) => {
         <label>
           <input type="checkbox" checked={checked} onChange={onChange} />
           {isEditing ? (
-            <input type="text" value={text} onChange={() => {}} />
+            <input
+              autoFocus
+              type="text"
+              value={text}
+              onChange={() => {}}
+              onBlur={handleBlur}
+            />
           ) : (
             text
           )}
