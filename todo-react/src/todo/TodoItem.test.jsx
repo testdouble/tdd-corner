@@ -3,7 +3,7 @@
  */
 import React from "react";
 
-import { render, screen } from "@testing-library/react";
+import { render, screen, prettyDOM } from "@testing-library/react";
 import "@testing-library/jest-dom"; // For focus matcher
 
 import userEvent from "@testing-library/user-event";
@@ -122,30 +122,30 @@ describe("TodoItem", () => {
       expect(input).toHaveFocus();
     });
 
-    it("when blurred loses editing class", () => {
+    it("is no longer in edit mode when blurred", () => {
       const body = document.getElementsByTagName("body")[0];
       userEvent.click(body);
 
       const li = screen.getByRole("listitem");
       expect(li.className.split(" ")).not.toContain("editing");
     });
-  });
 
-  it("focuses the second input", () => {
-    render(
-      <>
-        <TodoItem text="edit me" checked={true} />
-        <TodoItem text="edit me also" checked={true} />
-      </>
-    );
+    xit("it is no longer in edit mode when you hit return", () => {       
+      const input = screen.getByRole("textbox");
+      userEvent.type(input, "more things {enter}");
+      
+      const li = screen.getByRole("listitem");
+      console.log(prettyDOM(li))
+      expect(li.className.split(" ")).not.toContain("editing");
+    });
 
-    const labelOne = screen.getByText("edit me");
-    const labelTwo = screen.getByText("edit me also");
-    userEvent.dblClick(labelOne);
-    userEvent.dblClick(labelTwo);
+    it("the change is saved", () => {
+      const input = screen.getByRole("textbox");
+      userEvent.type(input, "tex{enter}");
 
-    const inputs = screen.getAllByRole("textbox");
-    expect(inputs[0]).not.toHaveFocus();
-    expect(inputs[1]).toHaveFocus();
+      const li = screen.getByRole("listitem");
+
+      expect(li.textContent).toEqual("edit mex");
+    });
   });
 });
