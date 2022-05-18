@@ -91,11 +91,15 @@ describe("TodoItem", () => {
   });
 
   describe("edit mode", () => {
+    let user;
+
     beforeEach(() => {
+      user = userEvent.setup();
       render(<TodoItem initialText="edit me" checked={true} />);
 
       const label = screen.getByText("edit me");
-      userEvent.dblClick(label);
+
+      user.dblClick(label);
     });
 
     it("double clicking puts us in edit mode", () => {
@@ -124,7 +128,7 @@ describe("TodoItem", () => {
 
     it("is no longer in edit mode when blurred", () => {
       const body = document.getElementsByTagName("body")[0];
-      userEvent.click(body);
+      user.click(body);
 
       const li = screen.getByRole("listitem");
       expect(li.className.split(" ")).not.toContain("editing");
@@ -132,15 +136,15 @@ describe("TodoItem", () => {
 
     it("it is no longer in edit mode when you hit return", () => {
       const input = screen.getByRole("textbox");
-      userEvent.type(input, "more things {enter}");
-      
+      user.type(input, "more things {enter}");
+
       const li = screen.getByRole("listitem");
       expect(li.className.split(" ")).not.toContain("editing");
     });
 
     it("the change is saved", () => {
       const input = screen.getByRole("textbox");
-      userEvent.type(input, "tex{enter}");
+      user.type(input, "tex");
 
       const li = screen.getByRole("listitem");
       expect(li.textContent).toEqual("edit metex");
