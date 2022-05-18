@@ -25,7 +25,7 @@ describe("TodoItem", () => {
 
   it("has todo text", () => {
     const todoText = "I am a todo.";
-    render(<TodoItem text={todoText} />);
+    render(<TodoItem initialText={todoText} />);
 
     const listItem = screen.getByRole("listitem");
     expect(listItem.textContent).toEqual(todoText);
@@ -81,7 +81,7 @@ describe("TodoItem", () => {
   });
 
   it("clicking on the label checks the box", () => {
-    render(<TodoItem text="I am an item" checked={true} />);
+    render(<TodoItem initialText="I am an item" checked={true} />);
 
     const label = screen.getByText("I am an item");
     userEvent.click(label);
@@ -92,7 +92,7 @@ describe("TodoItem", () => {
 
   describe("edit mode", () => {
     beforeEach(() => {
-      render(<TodoItem text="edit me" checked={true} />);
+      render(<TodoItem initialText="edit me" checked={true} />);
 
       const label = screen.getByText("edit me");
       userEvent.dblClick(label);
@@ -130,12 +130,11 @@ describe("TodoItem", () => {
       expect(li.className.split(" ")).not.toContain("editing");
     });
 
-    xit("it is no longer in edit mode when you hit return", () => {       
+    it("it is no longer in edit mode when you hit return", () => {
       const input = screen.getByRole("textbox");
       userEvent.type(input, "more things {enter}");
       
       const li = screen.getByRole("listitem");
-      console.log(prettyDOM(li))
       expect(li.className.split(" ")).not.toContain("editing");
     });
 
@@ -144,8 +143,7 @@ describe("TodoItem", () => {
       userEvent.type(input, "tex{enter}");
 
       const li = screen.getByRole("listitem");
-
-      expect(li.textContent).toEqual("edit mex");
+      expect(li.textContent).toEqual("edit metex");
     });
   });
 });

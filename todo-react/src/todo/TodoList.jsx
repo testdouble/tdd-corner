@@ -19,7 +19,7 @@ export default function Todo(props) {
           return (
             <TodoItem
               key={index}
-              text={item.value}
+              initialText={item.value}
               checked={item.checked}
               onChange={() => toggleTodo(index)}
             />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default ({ text, checked, onChange = () => {} }) => {
+export default ({ initialText, checked, onChange = () => {} }) => {
   const classes = [];
   if (checked) {
     classes.push("completed");
@@ -11,11 +11,15 @@ export default ({ text, checked, onChange = () => {} }) => {
     classes.push("editing");
   }
 
+  const [text, setText] = useState(initialText);
+
   const handleDoubleClick = () => {
     setIsEditing(true);
   };
 
-  const handleBlur = () => {
+  const handleBlur = (e) => {
+    console.log("handleBlur e.target.value", e.target.value);
+    setText(e.target.value);
     setIsEditing(false);
   };
 
@@ -29,7 +33,10 @@ export default ({ text, checked, onChange = () => {} }) => {
               autoFocus
               type="text"
               value={text}
-              onChange={() => {}}
+              onChange={(e) => {
+                console.log("onChange e.target.value", e.target.value);
+                setText(e.target.value);
+              }}
               onBlur={handleBlur}
             />
           ) : (
