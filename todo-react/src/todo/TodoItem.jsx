@@ -18,31 +18,36 @@ export default ({ initialText, checked, onChange = () => {} }) => {
   };
 
   const handleBlur = (e) => {
-    console.log("handleBlur e.target.value", e.target.value);
-    setText(e.target.value);
+    commitChange(e.target.value);
+  };
+
+  const commitChange = (text) => {
+    setText(text);
     setIsEditing(false);
   };
 
   return (
     <>
       <li className={classes.join(" ")} onDoubleClick={handleDoubleClick}>
-        <label>
-          <input type="checkbox" checked={checked} onChange={onChange} />
-          {isEditing ? (
-            <input
-              autoFocus
-              type="text"
-              value={text}
-              onChange={(e) => {
-                console.log("onChange e.target.value", e.target.value);
-                setText(e.target.value);
-              }}
-              onBlur={handleBlur}
-            />
-          ) : (
-            text
-          )}
-        </label>
+        <input type="checkbox" checked={checked} onChange={onChange} />
+        {isEditing ? (
+          <input
+            autoFocus
+            type="text"
+            value={text}
+            onChange={(e) => {
+              setText(e.target.value);
+            }}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                commitChange(text);
+              }
+            }}
+            onBlur={handleBlur}
+          />
+        ) : (
+          <span>{text}</span>
+        )}
       </li>
     </>
   );

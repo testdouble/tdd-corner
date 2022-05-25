@@ -86,13 +86,13 @@ describe("todo list", () => {
       expect(markAllCheckbox).toBeTruthy();
     });
 
-    it("callsback the callback", () => {
+    it("callsback the callback", async () => {
       const items = [];
       const cb = jest.fn();
 
-      const output = render(<TodoList items={items} checkAllTodos={cb} />);
+      render(<TodoList items={items} checkAllTodos={cb} />);
       const markAllCheckbox = screen.queryByTestId("mark_all_checkbox");
-      userEvent.click(markAllCheckbox);
+      await userEvent.click(markAllCheckbox);
 
       expect(cb).toHaveBeenCalled();
     });

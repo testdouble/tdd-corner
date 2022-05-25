@@ -62,44 +62,44 @@ describe("TodoItem", () => {
     expect(checkbox).not.toBeChecked();
   });
 
-  it("calls the handler when checked", () => {
+  it("calls the handler when checked", async () => {
     const handler = jest.fn();
     render(<TodoItem onChange={handler} checked={false} />);
     const checkbox = screen.getByRole("checkbox");
 
-    userEvent.click(checkbox);
+    await userEvent.click(checkbox);
     expect(handler).toBeCalled();
   });
 
-  it("calls the handler when unchecked", () => {
+  it("calls the handler when unchecked", async () => {
     const handler = jest.fn();
     render(<TodoItem onChange={handler} checked={true} />);
     const checkbox = screen.getByRole("checkbox");
 
-    userEvent.click(checkbox);
+    await userEvent.click(checkbox);
     expect(handler).toBeCalled();
   });
 
-  it("clicking on the label checks the box", () => {
-    render(<TodoItem initialText="I am an item" checked={true} />);
+  it("clicking on the label does not checky the boxy", async () => {
+    render(<TodoItem initialText="I am an item" />);
 
     const label = screen.getByText("I am an item");
-    userEvent.click(label);
+    await userEvent.click(label);
 
     const checkbox = screen.getByRole("checkbox");
-    expect(checkbox).toBeChecked();
+    expect(checkbox).not.toBeChecked();
   });
 
   describe("edit mode", () => {
     let user;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       user = userEvent.setup();
       render(<TodoItem initialText="edit me" checked={true} />);
 
       const label = screen.getByText("edit me");
 
-      user.dblClick(label);
+      await user.dblClick(label);
     });
 
     it("double clicking puts us in edit mode", () => {
@@ -126,25 +126,28 @@ describe("TodoItem", () => {
       expect(input).toHaveFocus();
     });
 
-    it("is no longer in edit mode when blurred", () => {
+    it("is no longer in edit mode when blurred", async () => {
       const body = document.getElementsByTagName("body")[0];
-      user.click(body);
+      await user.click(body);
 
       const li = screen.getByRole("listitem");
       expect(li.className.split(" ")).not.toContain("editing");
     });
 
-    it("it is no longer in edit mode when you hit return", () => {
+    it("it is no longer in edit mode when you hit return", async () => {
       const input = screen.getByRole("textbox");
-      user.type(input, "more things {enter}");
+      await user.type(input, "more things {enter}");
 
       const li = screen.getByRole("listitem");
       expect(li.className.split(" ")).not.toContain("editing");
     });
 
-    it("the change is saved", () => {
+    it("the change is saved on blur", async () => {
       const input = screen.getByRole("textbox");
-      user.type(input, "tex");
+      await user.type(input, "tex");
+
+      const body = document.getElementsByTagName("body")[0];
+      await user.click(body);
 
       const li = screen.getByRole("listitem");
       expect(li.textContent).toEqual("edit metex");

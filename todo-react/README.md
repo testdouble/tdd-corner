@@ -32,14 +32,14 @@ Requirements (from [TodoMVC](https://github.com/tastejs/todomvc/blob/master/app-
 A todo item has three possible interactions:
 
 - [x] Clicking the checkbox marks the todo as complete by updating its `completed` value and toggling the class `completed` on its parent `<li>`
-- [x] Single-clicking makes the checky checked
+- [x] Single-clicking the item text does not mark it as complete
 - [x] Double-clicking the `<label>` activates editing mode, by adding the `.editing` class on its `<li>` and hides the label text
 - [ ] Hovering over the todo shows the remove button (`.destroy`)
 
 ### Editing
 
 - [x] When editing mode is activated it will present an input that contains the todo title which should be focused.
-- [ ] The edit should be saved on both blur and enter, and the `editing` class should be removed.
+- [x] The edit should be saved on both blur and enter, and the `editing` class should be removed.
 - [ ] Make sure to `.trim()` the input and then check that it's not empty. If it's empty the todo should instead be destroyed.
 - [ ] If escape is pressed during the edit, the edit state should be left and any changes be discarded.
 - [ ] If an item is double clicked, don't complete the todo.
