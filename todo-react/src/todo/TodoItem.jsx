@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default ({ initialText, checked, onChange = () => {} }) => {
+export default ({ initialText='', checked, onChange = () => {} }) => {
   const classes = [];
   if (checked) {
     classes.push("completed");
@@ -14,6 +14,7 @@ export default ({ initialText, checked, onChange = () => {} }) => {
   const [text, setText] = useState(initialText);
 
   const handleDoubleClick = () => {
+    console.log("sdsdsds")
     setIsEditing(true);
   };
 
@@ -36,12 +37,16 @@ export default ({ initialText, checked, onChange = () => {} }) => {
             type="text"
             value={text}
             onChange={(e) => {
+              console.log('change', e.target.value);
               setText(e.target.value);
+              // return true;
             }}
             onKeyPress={(e) => {
+              console.log('onKeyPress', e.key);
               if (e.key === "Enter") {
                 commitChange(text);
               }
+              // return true;
             }}
             onBlur={handleBlur}
           />
