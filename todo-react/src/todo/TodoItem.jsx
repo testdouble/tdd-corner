@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default ({ initialText='', checked, onChange = () => {} }) => {
+export default ({ initialText = "", checked, onChange = () => {} }) => {
   const classes = [];
   if (checked) {
     classes.push("completed");
@@ -11,10 +11,11 @@ export default ({ initialText='', checked, onChange = () => {} }) => {
     classes.push("editing");
   }
 
+  const [isHovering, setIsHovering] = useState(false);
+
   const [text, setText] = useState(initialText);
 
   const handleDoubleClick = () => {
-    console.log("sdsdsds")
     setIsEditing(true);
   };
 
@@ -29,7 +30,12 @@ export default ({ initialText='', checked, onChange = () => {} }) => {
 
   return (
     <>
-      <li className={classes.join(" ")} onDoubleClick={handleDoubleClick}>
+      <li
+        className={classes.join(" ")}
+        onDoubleClick={handleDoubleClick}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
         <input type="checkbox" checked={checked} onChange={onChange} />
         {isEditing ? (
           <input
@@ -37,21 +43,20 @@ export default ({ initialText='', checked, onChange = () => {} }) => {
             type="text"
             value={text}
             onChange={(e) => {
-              console.log('change', e.target.value);
               setText(e.target.value);
-              // return true;
             }}
             onKeyPress={(e) => {
-              console.log('onKeyPress', e.key);
               if (e.key === "Enter") {
                 commitChange(text);
               }
-              // return true;
             }}
             onBlur={handleBlur}
           />
         ) : (
-          <span>{text}</span>
+          <>
+            <span>{text}</span>
+            {isHovering && <button className="destroy">X</button>}
+          </>
         )}
       </li>
     </>

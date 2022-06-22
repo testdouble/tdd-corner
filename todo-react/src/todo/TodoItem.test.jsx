@@ -153,4 +153,37 @@ describe("TodoItem", () => {
       expect(li.textContent).toEqual("edit metex");
     });
   });
+
+  describe("it be hovered, yarr", () => {
+    it("shows the destroy button", async () => {
+      render(<TodoItem initialText="edit me" checked={true} />);
+
+      const span = screen.getByText("edit me");
+
+      let user = userEvent.setup();
+      await user.hover(span);
+
+      const deleteButton = screen.getByText("X");
+      expect(deleteButton);
+
+      expect(deleteButton.className).toContain("destroy");
+
+      await user.unhover(span);
+      expect(screen.queryByText("X")).toBeNull();
+    });
+
+    it("invokes a handler when you click", async () => {
+      render(<TodoItem initialText="edit me" checked={true} />);
+
+      const span = screen.getByText("edit me");
+
+      let user = userEvent.setup();
+      await user.hover(span);
+
+      const button = screen.getByText("X");
+      await user.click(button);
+
+      expect(something).toBeCalled();
+    });
+  });
 });
