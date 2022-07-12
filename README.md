@@ -1,7 +1,7 @@
 # Current
 Time: Weds at 1400 ET (Check TD calendar and invite yourself)
 
-Exercise: A react TODO app
+Exercise: A Rails app for submitting proposals to TDD corner
 
 Organizers: Steve and Kenneth
 
@@ -38,6 +38,9 @@ https://mobti.me/td.   We'll start with strong pairing with these roles:
 
 
 # Archive
+
+## TODO-React
+Source: https://github.com/testdouble/tdd-corner/tree/main/todo-react
 
 ## Advent of Code
 Source: https://adventofcode.com/2020/day/1
