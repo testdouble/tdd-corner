@@ -12,9 +12,9 @@ Test Double User
 
 1. Can login using testdouble credentials
 2. Submit proposals
-3. Proposals have a description
-4. Proposals have contact info for the requestor
-5. Proposals are visible for reference
+3. [x] Proposals have a description
+4. [x] Proposals have contact info for the requestor
+5. [x] Proposals are visible for reference
 6. Can add request comments
 
 Admin User

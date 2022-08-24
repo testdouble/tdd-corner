@@ -1,0 +1,12 @@
+<%= form_with model: @proposal do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+
+  <%= f.label :contact %>
+  <%= f.text_field :contact %>
+
+  <%= f.submit "Create" %>
+<% end %>

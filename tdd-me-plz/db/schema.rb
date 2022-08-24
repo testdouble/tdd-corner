@@ -10,10 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_20_185006) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_24_183444) do
   create_table "proposals", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
+    t.string "description"
+    t.string "contact"
   end
 
 end

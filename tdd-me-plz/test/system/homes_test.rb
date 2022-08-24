@@ -10,19 +10,40 @@ class HomesTest < ApplicationSystemTestCase
   test "no proposals" do
     visit '/'
 
-    assert_selector "h2", text: "No proposals!"
+    assert_selector "h2", text: "0 proposals"
   end
 
   test "one proposal" do
-    Proposal.create!
+    proposal = Proposal.create!(title: "foo title", description: "foo description", contact: "Bob Barker")
     visit '/'
-    assert_selector "h2", text: "One proposal?"
+    assert_selector "h2", text: "1 proposal"
+
+    assert_selector "h3", text: "foo title"
+    assert_selector "p", text: "foo description"
+    assert_selector "cite", text: "Bob Barker"
   end
 
   test "two proposals" do
-    Proposal.create!
-    Proposal.create!
+    Proposal.create!(title: "title 1", description: "description 1")
+    Proposal.create!(title: "title 2", description: "description 2")
     visit '/'
-    assert_selector "h2", text: "Two proposal$"
+    assert_selector "h2", text: "2 proposals"
+
+    assert_selector "h3", text: "title 1"
+    assert_selector "p", text: "description 1"
+    assert_selector "h3", text: "title 2"
+    assert_selector "p", text: "description 2"
+  end
+
+  test "create a proposal" do
+    visit '/proposals/new'
+
+    fill_in "Title", with: "Creating an Article"
+    fill_in "Description", with: "Created this article successfully!"
+    fill_in "Contact", with: "Bob Barker"
+
+    click_on "Create"
+
+    assert Proposal.all.length == 1
   end
 end

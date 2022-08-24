@@ -1,6 +1,8 @@
 <h1>Home</h1>
-<% if @proposals.length > 0 %>
-<h2>One proposal?</h2>
-<%else%>
-<h2>No proposals!</h2>
-<%end%>
+
+<h2><%= @proposals.length %> proposals</h2>
+<% @proposals.each do | item | %>
+  <h3><%= item.title %></h3>
+  <p><%= item.description %></p>
+  <cite><%= item.contact %></cite>
+<% end %>
