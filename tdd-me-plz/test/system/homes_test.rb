@@ -44,6 +44,15 @@ class HomesTest < ApplicationSystemTestCase
 
     click_on "Create"
 
-    assert Proposal.all.length == 1
+    self.assert_current_path root_path
+    #AN IDEA FOR LATTER !!!!!!
+    #table_data = suck_up_table_data
+    #[
+    #  {title: 'foo'}
+
+    #]
+
+    assert_selector "h2", text: "1 proposal"
+    assert_selector "h3", text: "Creating an Article"
   end
 end
