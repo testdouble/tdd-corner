@@ -24,7 +24,7 @@ class ProposalsTest < ApplicationSystemTestCase
     assert_selector "cite", text: "Bob Barker"
   end
 
-  test "title is required" do
+  test "title can't be blank" do
     visit '/proposals/new'
 
     fill_in "Description", with: "Created this article successfully!"
@@ -32,8 +32,29 @@ class ProposalsTest < ApplicationSystemTestCase
 
     click_on "Create"
 
-    assert_text "Title is required"
+    assert_text "Title can't be blank"
 
     self.assert_current_path '/proposals/new'
+  end
+
+  test "neither title nor contact can be blank" do
+    visit '/proposals/new'
+
+    click_on "Create"
+
+    assert_text "Title can't be blank"
+    assert_text "Contact can't be blank"
+
+    self.assert_current_path '/proposals/new'
+  end
+
+  test "description is repopulated after the user effs up" do
+    visit '/proposals/new'
+
+    description_text = "blah blah blah"
+    fill_in "Description", with: description_text
+    click_on "Create"
+
+    assert_text description_text
   end
 end
