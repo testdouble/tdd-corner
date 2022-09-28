@@ -1,6 +1,6 @@
 class ProposalsController < ApplicationController
   def new
-    @proposal = Proposal.new(flash[:proposal])
+    @proposal = Proposal.new(flash[:form_data])
   end
 
   def create
@@ -14,7 +14,7 @@ class ProposalsController < ApplicationController
       redirect_to root_path
     else
       flash[:errors] = @proposal.errors.map(&:full_message)
-      flash[:proposal] = @proposal.attributes
+      flash[:form_data] = @proposal.attributes
       redirect_to '/proposals/new'
     end
   end

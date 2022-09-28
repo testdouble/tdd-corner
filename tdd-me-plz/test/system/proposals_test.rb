@@ -57,4 +57,17 @@ class ProposalsTest < ApplicationSystemTestCase
 
     assert_text description_text
   end
+
+  test 'cookie overflow test' do
+    visit '/proposals/new'
+
+    long_description = "a" * 1_024_000
+    fill_in "Description", with: long_description
+    fill_in "Contact", with: "Bob Barker"
+
+    click_on "Create"
+
+    self.assert_current_path '/proposals/new'
+    assert_text long_description
+  end
 end

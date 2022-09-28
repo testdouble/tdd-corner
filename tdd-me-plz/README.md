@@ -11,11 +11,12 @@ Anonymous User
 Test Double User
 
 1. Can login using testdouble credentials
-2. Submit proposals
+2. [x] Submit proposals
 3. [x] Proposals have a description
 4. [x] Proposals have contact info for the requestor
 5. [x] Proposals are visible for reference
 6. Can add request comments
+7. Can remove proposal once they are complete
 
 Admin User
 
@@ -27,6 +28,12 @@ Post-MVP (won't do)
 
 1. Proposals notify someone/somehow
 2. Defined Proposals statuses
+
+## Refactoring ideas
+
+1. Style the form
+2. Custom test helpers
+3. Move root to proposals/index
 
 ## Proposal Lifetime
 

@@ -7,6 +7,13 @@ class HomesTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Home"
   end
 
+  test "click the new proposal link/button" do
+    visit '/'
+
+    click_on 'New Proposal'
+    assert_current_path '/proposals/new'
+  end
+
   test "no proposals" do
     visit '/'
 
