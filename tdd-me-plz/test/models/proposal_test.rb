@@ -10,4 +10,12 @@ class ProposalTest < ActiveSupport::TestCase
     proposal = Proposal.new(title: "", contact: "")
     assert proposal.invalid?
   end
+
+  test "can have comments" do
+    proposal = Proposal.create(title: 'yup', description: 'yup', contact: 'yup')
+    comment = Comment.create!(text: "hellooooo", proposal: proposal)
+    comment2 = Comment.create!(text: "goodbyeeeee", proposal: proposal)
+
+    result = proposal.comments
+  end
 end

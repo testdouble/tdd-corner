@@ -41,4 +41,14 @@ class HomesTest < ApplicationSystemTestCase
     assert_selector "h3", text: "title 2"
     assert_selector "cite", text: "description 2"
   end
+
+  test "create a comment" do
+    Proposal.create!(title: "title 1", contact: "description 1")
+    visit '/'
+
+    fill_in "Comment", with: "farglebargle"
+    click_on "Add Comment"
+
+    assert_text "farglebargle"
+  end
 end
