@@ -1,9 +1,9 @@
 # Current
-Time: Weds at 1400 ET (Check TD calendar and invite yourself)
+Time: Friday at 1300 ET (Check TD calendar and invite yourself)
 
 Exercise: A Rails app for submitting proposals to TDD corner
 
-Organizers: Steve and Kenneth
+Organizers: Steve Jackson and Andrew Walker
 
 
 # Overview
