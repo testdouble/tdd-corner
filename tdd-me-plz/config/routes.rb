@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "home#index"
 
-  resources :proposals, only: [:new, :create]
+  resources :proposals, only: [:new, :create, :show]
+
+  resources :comments, only: [:create]
 end

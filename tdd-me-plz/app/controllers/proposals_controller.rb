@@ -18,4 +18,8 @@ class ProposalsController < ApplicationController
       redirect_to '/proposals/new'
     end
   end
+
+  def show
+    @proposal = Proposal.find(params[:id])
+  end
 end

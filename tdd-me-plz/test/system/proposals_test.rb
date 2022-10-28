@@ -70,4 +70,14 @@ class ProposalsTest < ApplicationSystemTestCase
     self.assert_current_path '/proposals/new'
     assert_text long_description
   end
+
+  test "adding a comment to an existing proposal" do
+    proposal = Proposal.create!(title: 'title', contact: 'contact')
+    visit proposal_path(proposal)
+
+    fill_in "New Comment", with: "first!"
+    click_on "Add Comment"
+
+    assert_selector('p', text: 'first!')
+  end
 end
