@@ -1,3 +1,5 @@
+<h1><%= @proposal.title %></h1>
+
 <%= form_with model: Comment.new do |form| %>
   <%= form.hidden_field :proposal_id, value: @proposal.id %>
   <%= form.label :new_comment, 'New Comment' %>
@@ -5,4 +7,7 @@
   <%= form.submit 'Add Comment' %>
 <% end %>
 
-<p>asdsadasd</p>
+<% @proposal.comments.each do |comment| %>
+  <p><%= comment.text %></p>
+<% end %>
+

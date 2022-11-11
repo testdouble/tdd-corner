@@ -42,13 +42,23 @@ class HomesTest < ApplicationSystemTestCase
     assert_selector "cite", text: "description 2"
   end
 
-  test "create a comment" do
+  test "links to each proposal" do
     Proposal.create!(title: "title 1", contact: "description 1")
+    Proposal.create!(title: "title 2", contact: "description 2")
     visit '/'
 
-    fill_in "Comment", with: "farglebargle"
-    click_on "Add Comment"
+    assert_selector "a", text: "title 1"
 
-    assert_text "farglebargle"
+    click_on "title 1"
+
+    assert_selector "h1", text: "title 1"
+
+    visit '/'
+
+    assert_selector "a", text: "title 2"
+
+    click_on "title 2"
+
+    assert_selector "h1", text: "title 2"
   end
 end

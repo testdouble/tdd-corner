@@ -80,4 +80,18 @@ class ProposalsTest < ApplicationSystemTestCase
 
     assert_selector('p', text: 'first!')
   end
+
+  test "adding multiple comments to an existing proposal" do
+    proposal = Proposal.create!(title: 'title', contact: 'contact')
+    visit proposal_path(proposal)
+
+    fill_in "New Comment", with: "first!"
+    click_on "Add Comment"
+
+    fill_in "New Comment", with: "not first :("
+    click_on "Add Comment"
+
+    assert_selector('p', text: 'first!')
+    assert_selector('p', text: 'not first :(')
+  end
 end
