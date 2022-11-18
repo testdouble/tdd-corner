@@ -94,4 +94,13 @@ class ProposalsTest < ApplicationSystemTestCase
     assert_selector('p', text: 'first!')
     assert_selector('p', text: 'not first :(')
   end
+
+  test "a comment should show the author" do
+    proposal = Proposal.create!(title: 'title', contact: 'contact')
+    comment = proposal.comments.create!(text: 'comment', author: 'author')
+    visit proposal_path(proposal)
+
+    assert_selector('cite', text: 'author')
+
+  end
 end
