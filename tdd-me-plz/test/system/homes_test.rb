@@ -43,22 +43,16 @@ class HomesTest < ApplicationSystemTestCase
   end
 
   test "links to each proposal" do
-    Proposal.create!(title: "title 1", contact: "description 1")
-    Proposal.create!(title: "title 2", contact: "description 2")
+    proposal1 = Proposal.create!(title: "title 1", contact: "description 1")
+    proposal2= Proposal.create!(title: "title 2", contact: "description 2")
+
     visit '/'
-
-    assert_selector "a", text: "title 1"
-
     click_on "title 1"
+    assert_current_path "/proposals/#{proposal1.id}"
 
-    assert_selector "h1", text: "title 1"
-
+    # Come back to home and click another
     visit '/'
-
-    assert_selector "a", text: "title 2"
-
     click_on "title 2"
-
-    assert_selector "h1", text: "title 2"
+    assert_current_path "/proposals/#{proposal2.id}"
   end
 end

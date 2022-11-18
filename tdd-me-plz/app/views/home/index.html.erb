@@ -2,9 +2,10 @@
 <h1>Home</h1>
 
 <h2><%= @proposals.length %> proposals</h2>
-<% @proposals.each do | item | %>
-  <h3><%= item.title %></h3>
-  <p><%= item.description %></p>
-  <cite><%= item.contact %></cite>
-  <%= link_to(item.title, proposal_path(item)) %>
-<% end %>
+<section>
+  <% @proposals.each do | item | %>
+    <h3><%= link_to(item.title, proposal_path(item)) %></h3>
+    <p><%= item.description %></p>
+    <cite><%= item.contact %></cite>
+  <% end %>
+</section>
