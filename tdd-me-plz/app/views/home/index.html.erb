@@ -1,11 +1,18 @@
-<%= link_to 'New Proposal', new_proposal_path %>
+<%= link_to 'New Proposal', new_proposal_path, class: 'btn btn-primary' %>
 <h1>Home</h1>
 
 <h2><%= @proposals.length %> proposals</h2>
 <section>
   <% @proposals.each do | item | %>
-    <h3><%= link_to(item.title, proposal_path(item)) %></h3>
-    <p><%= item.description %></p>
-    <cite><%= item.contact %></cite>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h3 class="card-title"><%= item.title %></h3>
+        <p class="card-text">
+          <%= item.description %>
+          <cite><%= item.contact %></cite>
+        </p>
+        <%= link_to 'Show', proposal_path(item), class: 'btn btn-primary' %>
+      </div>
+    </div>
   <% end %>
 </section>
