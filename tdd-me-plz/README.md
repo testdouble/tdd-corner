@@ -15,8 +15,8 @@ Test Double User
 3. [x] Proposals have a description
 4. [x] Proposals have contact info for the requestor
 5. [x] Proposals are visible for reference
-6. Can add request comments
-7. Can remove proposal once they are complete
+6. [x] Can add request comments
+7. Can remove proposal once they are complete - if it's your proposal
 
 Admin User
 

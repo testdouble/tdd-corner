@@ -9,5 +9,6 @@
 
 <% @proposal.comments.each do |comment| %>
   <p><%= comment.text %></p>
+  <cite><%= comment.author %></cite>
 <% end %>
 
