@@ -18,7 +18,7 @@ class ProposalsTest < ApplicationSystemTestCase
 
     #]
 
-    assert_selector "h2", text: "1 proposal"
+    assert_text "1 proposal"
     assert_selector "h3", text: "Creating an Article"
     assert_selector "p", text: "Created this article successfully!"
     assert_selector "cite", text: "Bob Barker"
