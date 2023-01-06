@@ -7,6 +7,7 @@ An application for submitting TDD (client) problems for TDD corner
 Anonymous User
 
 1. Roboprotection (no spam)
+2. [x] Can go home from any page
 
 Test Double User
 
@@ -34,6 +35,7 @@ Post-MVP (won't do)
 1. Style the form
 2. Custom test helpers
 3. Move root to proposals/index
+4. Move tests out of system/homes_test that are about the layout, not about the home page specifically
 
 ## Proposal Lifetime
 

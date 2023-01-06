@@ -7,6 +7,21 @@ class HomesTest < ApplicationSystemTestCase
     assert_selector "h1", text: "TDD Me Plz"
   end
 
+  test "seeing 'you are not logged in' when not logged in" do
+    visit '/'
+
+    assert_text 'You are not logged in.'
+  end
+
+  test "seeing the logged in username when logged in" do
+    # TODO: log in????
+
+    visit '/'
+
+    assert_no_text 'You are not logged in.' # right method???
+    assert_text 'You are logged in as Fake User'
+  end
+
   test "click the new proposal link/button" do
     visit '/'
 
@@ -49,5 +64,21 @@ class HomesTest < ApplicationSystemTestCase
     visit '/'
     click_link("Show", :match => :first)
     assert_current_path "/proposals/#{proposal1.id}"
+  end
+
+  test "we can go home from anywhere" do
+    visit '/'
+    click_link("TDD Me Plz")
+    assert_current_path "/"
+
+    proposal1 = Proposal.create!(title: "title 1", contact: "description 1")
+
+    visit "/proposals/#{proposal1.id}"
+    click_link("TDD Me Plz")
+    assert_current_path "/"
+
+    visit "/proposals/new"
+    click_link("TDD Me Plz")
+    assert_current_path "/"
   end
 end

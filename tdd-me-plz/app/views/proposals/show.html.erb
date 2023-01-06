@@ -2,13 +2,16 @@
 
 <%= form_with model: Comment.new do |form| %>
   <%= form.hidden_field :proposal_id, value: @proposal.id %>
-  <%= form.label :new_comment, 'New Comment' %>
-  <%= form.text_field :new_comment %>
-  <%= form.submit 'Add Comment' %>
+  <%= form.label :new_comment, 'New Comment', class: 'form-label' %>
+  <%= form.text_field :new_comment, class: 'form-control' %>
+  <%= form.submit 'Add Comment', class: 'btn btn-primary' %>
 <% end %>
 
+<ul>
 <% @proposal.comments.each do |comment| %>
+  <li>
   <p><%= comment.text %></p>
   <cite><%= comment.author %></cite>
-<% end %>
-
+  </li>
+  <% end %>
+</ul>
