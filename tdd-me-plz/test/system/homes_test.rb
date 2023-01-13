@@ -14,11 +14,9 @@ class HomesTest < ApplicationSystemTestCase
   end
 
   test "seeing the logged in username when logged in" do
-    # TODO: log in????
-
+    visit '/test_login?name=Fake+User'
     visit '/'
 
-    assert_no_text 'You are not logged in.' # right method???
     assert_text 'You are logged in as Fake User'
   end
 

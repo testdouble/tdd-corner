@@ -2,11 +2,11 @@ require "application_system_test_case"
 
 class ProposalsTest < ApplicationSystemTestCase
   test "create a proposal" do
+    visit '/test_login?name=Bob+Barker'
     visit '/proposals/new'
 
     fill_in "Title", with: "Creating an Article"
     fill_in "Description", with: "Created this article successfully!"
-    fill_in "Contact", with: "Bob Barker"
 
     click_on "Create"
 
