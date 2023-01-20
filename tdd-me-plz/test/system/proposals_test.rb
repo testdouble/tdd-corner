@@ -1,8 +1,11 @@
 require "application_system_test_case"
 
 class ProposalsTest < ApplicationSystemTestCase
-  test "create a proposal" do
+  setup do
     visit '/test_login?name=Bob+Barker'
+  end
+
+  test "create a proposal" do
     visit '/proposals/new'
 
     fill_in "Title", with: "Creating an Article"
@@ -11,12 +14,6 @@ class ProposalsTest < ApplicationSystemTestCase
     click_on "Create"
 
     self.assert_current_path root_path
-    #AN IDEA FOR LATER !!!!!!
-    #table_data = suck_up_table_data
-    #[
-    #  {title: 'foo'}
-
-    #]
 
     assert_text "1 proposal"
     assert_selector "h3", text: "Creating an Article"
@@ -28,22 +25,10 @@ class ProposalsTest < ApplicationSystemTestCase
     visit '/proposals/new'
 
     fill_in "Description", with: "Created this article successfully!"
-    fill_in "Contact", with: "Bob Barker"
 
     click_on "Create"
 
     assert_text "Title can't be blank"
-
-    self.assert_current_path '/proposals/new'
-  end
-
-  test "neither title nor contact can be blank" do
-    visit '/proposals/new'
-
-    click_on "Create"
-
-    assert_text "Title can't be blank"
-    assert_text "Contact can't be blank"
 
     self.assert_current_path '/proposals/new'
   end
@@ -63,7 +48,6 @@ class ProposalsTest < ApplicationSystemTestCase
 
     long_description = "a" * 1_024_000
     fill_in "Description", with: long_description
-    fill_in "Contact", with: "Bob Barker"
 
     click_on "Create"
 
@@ -97,10 +81,11 @@ class ProposalsTest < ApplicationSystemTestCase
 
   test "a comment should show the author" do
     proposal = Proposal.create!(title: 'title', contact: 'contact')
-    comment = proposal.comments.create!(text: 'comment', author: 'author')
+
     visit proposal_path(proposal)
+    fill_in "New Comment", with: "first!"
+    click_on "Add Comment"
 
-    assert_selector('cite', text: 'author')
-
+    assert_selector('cite', text: 'Bob Barker')
   end
 end
