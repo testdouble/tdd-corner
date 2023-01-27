@@ -72,6 +72,8 @@ class ProposalsTest < ApplicationSystemTestCase
     fill_in "New Comment", with: "first!"
     click_on "Add Comment"
 
+    assert_selector('p', text: 'first!')
+
     fill_in "New Comment", with: "not first :("
     click_on "Add Comment"
 
