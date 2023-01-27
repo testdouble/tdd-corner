@@ -5,13 +5,29 @@ class NotLoggedInTest < ApplicationSystemTestCase
         # don't log in
     end
 
-    test 'cannot access new proposal page' do
+    test 'cannot access new proposal page when not logged in' do
         visit '/proposals/new'
 
         assert_current_path '/'
 
-        ## we're planning to do this with "flash",
-        ## but hey, the future is unknown
-        assert_text "You are not allowed to do that."
+        assert_text "You are not allowed to make a new proposal."
     end
+
+    # test 'can access new proposal page when logged in' do
+    #     # log in
+
+    #     visit '/proposals/new'
+
+    #     assert_current_path '/proposals/new'
+
+    #     assert_no_text "You are not allowed to make a new proposal."
+    # end
+
+    # test 'cannot comment' do
+    #     post '/proposals/42/comments'
+
+    #     assert_current_path '/proposals/42'
+
+    #     assert_text "You are not allowed to comment."
+    # end
 end

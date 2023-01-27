@@ -8,6 +8,9 @@ class ProposalsTest < ApplicationSystemTestCase
   test "create a proposal" do
     visit '/proposals/new'
 
+    # temp, TODO: enhance!
+    assert_no_text "You are not allowed to make a new proposal."
+
     fill_in "Title", with: "Creating an Article"
     fill_in "Description", with: "Created this article successfully!"
 

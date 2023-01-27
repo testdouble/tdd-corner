@@ -1,5 +1,9 @@
 class ProposalsController < ApplicationController
   def new
+    if session[:name].blank?
+      redirect_to root_path, alert: 'You are not allowed'
+    end
+
     @proposal = Proposal.new(flash[:form_data])
   end
 

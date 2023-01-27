@@ -11,6 +11,12 @@
   </head>
 
   <body>
+    <% if flash[:alert].present? %>
+      <p>
+        You are not allowed to make a new proposal. !!!
+      </p>
+    <% end %>
+
     <div class="container mt-2">
       <h1><a href="/">TDD Me Plz</a></h1>
 
