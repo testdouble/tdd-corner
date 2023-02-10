@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   get 'test_login', to: 'session#test_login'
+  get 'login', to: 'session#login'
+  post 'login', to: 'session#create'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

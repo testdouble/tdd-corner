@@ -7,17 +7,18 @@ An application for submitting TDD (client) problems for TDD corner
 Anonymous User
 
 1. Roboprotection (no spam)
-2. [x] Can go home from any page
+2. Can login
 
 Test Double User
 
 1. Can login using testdouble credentials
 2. [x] Submit proposals
-3. [x] Proposals have a description
-4. [x] Proposals have contact info for the requestor
-5. [x] Proposals are visible for reference
-6. [x] Can add request comments
-7. Can remove proposal once they are complete - if it's your proposal
+3. [x] Can go home from any page
+4. [x] Proposals have a description
+5. [x] Proposals have contact info for the requestor
+6. [x] Proposals are visible for reference
+7. [x] Can add request comments
+8. Can remove proposal once they are complete - if it's your proposal
 
 Admin User
 

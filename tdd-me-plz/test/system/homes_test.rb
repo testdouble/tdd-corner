@@ -1,20 +1,17 @@
 require "application_system_test_case"
 
 class HomesTest < ApplicationSystemTestCase
+  setup do
+    visit '/test_login?name=Fake+User'
+  end
+
   test "visiting the index" do
     visit '/'
 
     assert_selector "h1", text: "TDD Me Plz"
   end
 
-  test "seeing 'you are not logged in' when not logged in" do
-    visit '/'
-
-    assert_text 'You are not logged in.'
-  end
-
   test "seeing the logged in username when logged in" do
-    visit '/test_login?name=Fake+User'
     visit '/'
 
     assert_text 'You are logged in as Fake User'

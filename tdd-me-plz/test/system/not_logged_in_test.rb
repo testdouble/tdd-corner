@@ -5,20 +5,21 @@ class NotLoggedInTest < ApplicationSystemTestCase
         # don't log in
     end
 
-    test 'cannot access new proposal page when not logged in' do
-        visit '/proposals/new'
 
-        assert_current_path '/'
-
-        assert_text "You are not allowed to make a new proposal."
+    test 'logged out users cannot access the home page' do
+        visit '/'
+        assert_current_path '/login'
     end
 
-    test 'that it can display a different auth error message, not just a hardcoded one' do
-        flunk 'figure out if or how to test this'
+    test 'logged out users cannot acces the new proposal page' do
+        visit '/proposals/new'
+        assert_current_path '/login'
+    end
 
-        # Brainstorm from Josh: why do we care? We don't care until we actually have a
-        # need to display a different message. If we know that case, we can test it.
-        # Otherwise, maybe move on.
+    test 'can login with TD credentials' do
+        visit '/login'
+        click_on 'Log in with Google'
+        assert_current_path '/'
     end
 
     # test 'can access new proposal page when logged in' do
