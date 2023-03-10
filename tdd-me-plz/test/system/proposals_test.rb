@@ -2,7 +2,9 @@ require "application_system_test_case"
 
 class ProposalsTest < ApplicationSystemTestCase
   setup do
-    visit '/test_login?name=Bob+Barker'
+    visit '/test_login?email=fakeuser@tddmeplz.test'
+    visit '/login'
+    click_on 'Log in with Google'
   end
 
   test "create a proposal" do
@@ -21,7 +23,7 @@ class ProposalsTest < ApplicationSystemTestCase
     assert_text "1 proposal"
     assert_selector "h3", text: "Creating an Article"
     assert_selector "p", text: "Created this article successfully!"
-    assert_selector "cite", text: "Bob Barker"
+    assert_selector "cite", text: "fakeuser@tddmeplz.test"
   end
 
   test "title can't be blank" do
@@ -91,6 +93,6 @@ class ProposalsTest < ApplicationSystemTestCase
     fill_in "New Comment", with: "first!"
     click_on "Add Comment"
 
-    assert_selector('cite', text: 'Bob Barker')
+    assert_selector('cite', text: 'fakeuser@tddmeplz.test')
   end
 end

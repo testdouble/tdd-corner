@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
     Comment.create!(
       proposal_id: params[:comment][:proposal_id],
       text: params[:comment][:new_comment],
-      author: session[:name]
+      author: session[:user][:email]
     )
     redirect_to proposal_path(params[:comment][:proposal_id])
   end

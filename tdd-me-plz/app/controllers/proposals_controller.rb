@@ -1,9 +1,5 @@
 class ProposalsController < ApplicationController
   def new
-    if session[:name].blank?
-      redirect_to login_path, alert: 'You are not allowed'
-    end
-
     @proposal = Proposal.new(flash[:form_data])
   end
 
@@ -11,7 +7,7 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.create(
       title: params[:proposal][:title],
       description: params[:proposal][:description],
-      contact: session[:name]
+      contact: session[:user][:email]
     )
 
     if @proposal.valid?

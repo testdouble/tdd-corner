@@ -2,7 +2,9 @@ require "application_system_test_case"
 
 class HomesTest < ApplicationSystemTestCase
   setup do
-    visit '/test_login?name=Fake+User'
+    visit '/test_login?email=fakeuser@tddmeplz.test'
+    visit '/login'
+    click_on 'Log in with Google'
   end
 
   test "visiting the index" do
@@ -11,10 +13,10 @@ class HomesTest < ApplicationSystemTestCase
     assert_selector "h1", text: "TDD Me Plz"
   end
 
-  test "seeing the logged in username when logged in" do
+  test "seeing the logged in email when logged in" do
     visit '/'
 
-    assert_text 'You are logged in as Fake User'
+    assert_text 'You are logged in as fakeuser@tddmeplz.test'
   end
 
   test "click the new proposal link/button" do
