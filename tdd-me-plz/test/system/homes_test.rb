@@ -3,8 +3,6 @@ require "application_system_test_case"
 class HomesTest < ApplicationSystemTestCase
   setup do
     visit '/test_login?email=fakeuser@tddmeplz.test'
-    visit '/login'
-    click_on 'Log in with Google'
   end
 
   test "visiting the index" do

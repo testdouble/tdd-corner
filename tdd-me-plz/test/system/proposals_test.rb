@@ -3,8 +3,6 @@ require "application_system_test_case"
 class ProposalsTest < ApplicationSystemTestCase
   setup do
     visit '/test_login?email=fakeuser@tddmeplz.test'
-    visit '/login'
-    click_on 'Log in with Google'
   end
 
   test "create a proposal" do
