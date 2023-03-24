@@ -37,6 +37,7 @@ Post-MVP (won't do)
 2. Custom test helpers
 3. Move root to proposals/index
 4. Move tests out of system/homes_test that are about the layout, not about the home page specifically
+5. Fix the omniauth warning about GET/POST
 
 ## Proposal Lifetime
 

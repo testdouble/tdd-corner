@@ -22,4 +22,9 @@ class SessionController < ActionController::Base
   def login
 
   end
+
+  def google_callback
+    google_payload = request.env['omniauth.auth']
+    redirect_to login_path, alert: "You're not Test Double"
+  end
 end
