@@ -13,7 +13,7 @@
   <body>
     <% if flash[:alert].present? %>
       <p>
-        You are not allowed to make a new proposal.
+        <%= flash[:alert] %>
       </p>
     <% end %>
 

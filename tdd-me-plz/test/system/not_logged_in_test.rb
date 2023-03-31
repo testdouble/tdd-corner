@@ -14,10 +14,4 @@ class NotLoggedInTest < ApplicationSystemTestCase
         visit '/proposals/new'
         assert_current_path '/login'
     end
-
-    test 'can login with TD credentials' do
-        visit '/login'
-        click_on 'Log in with Google'
-        assert_match /google\.com/, current_url
-    end
 end

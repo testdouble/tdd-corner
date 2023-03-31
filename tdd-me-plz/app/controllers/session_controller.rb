@@ -1,4 +1,6 @@
 class SessionController < ActionController::Base
+  layout "application"
+
   # This is where we're faking our google "mock" - it should be a round trip to create
   def test_login
     session[:user] = {
@@ -25,6 +27,7 @@ class SessionController < ActionController::Base
 
   def google_callback
     google_payload = request.env['omniauth.auth']
-    redirect_to login_path, alert: "You're not Test Double"
+    flash[:alert] = "You're not Test Double"
+    redirect_to '/login'
   end
 end
