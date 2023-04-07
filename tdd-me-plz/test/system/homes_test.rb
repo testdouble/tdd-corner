@@ -17,6 +17,12 @@ class HomesTest < ApplicationSystemTestCase
     assert_text 'You are logged in as fakeuser@tddmeplz.test'
   end
 
+  test "logout button" do
+    visit '/'
+    click_on "Logout"
+    assert_current_path login_path
+  end
+
   test "click the new proposal link/button" do
     visit '/'
 
