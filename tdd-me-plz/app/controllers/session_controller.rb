@@ -27,7 +27,15 @@ class SessionController < ActionController::Base
 
   def google_callback
     google_payload = request.env['omniauth.auth']
-    flash[:alert] = "You're not Test Double"
-    redirect_to '/login'
+    
+    email  = google_payload['info']['email']
+    if email.end_with?('@testdouble.com')
+      session[:user] = { email: }
+      flash[:alert] = "Welcome, #{email}"
+      redirect_to root_path
+    else
+      flash[:alert] = "You're not Test Double"
+      redirect_to login_path
+    end
   end
 end

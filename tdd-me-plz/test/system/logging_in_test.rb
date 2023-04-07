@@ -14,8 +14,9 @@ class LoggingInTest < ApplicationSystemTestCase
     end
 
     test 'can login with TD credentials' do
+      OmniAuth.config.add_mock(:google_oauth2, uid: "12345", info: {email: "employee@testdouble.com"}, credentials: {token: 1})
       visit '/login'
       click_on 'Log in with Google'
-      assert_match /google\.com/, current_url
+      assert_text "Welcome, employee@testdouble.com"
     end
 end
