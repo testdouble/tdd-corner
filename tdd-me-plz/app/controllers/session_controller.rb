@@ -25,6 +25,11 @@ class SessionController < ActionController::Base
 
   end
 
+  def logout
+    reset_session
+    redirect_to login_path
+  end
+
   def google_callback
     google_payload = request.env['omniauth.auth']
     

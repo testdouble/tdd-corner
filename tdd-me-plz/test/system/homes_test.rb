@@ -19,7 +19,7 @@ class HomesTest < ApplicationSystemTestCase
 
   test "logout button" do
     visit '/'
-    click_on "Logout"
+    click_on "Log Out"
     assert_current_path login_path
   end
 
