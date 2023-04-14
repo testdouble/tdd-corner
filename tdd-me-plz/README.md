@@ -11,7 +11,7 @@ Anonymous User
 
 Test Double User
 
-1. Can login using testdouble credentials
+1. [] Can login using testdouble credentials
 2. [x] Submit proposals
 3. [x] Can go home from any page
 4. [x] Proposals have a description

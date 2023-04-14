@@ -19,4 +19,20 @@ class LoggingInTest < ApplicationSystemTestCase
       click_on 'Log in with Google'
       assert_text "Welcome, employee@testdouble.com"
     end
+
+    test 'doesn"t blow up when email is nil' do
+      OmniAuth.config.add_mock(:google_oauth2, uid: nil, info: {email: nil}, credentials: {})
+      visit '/login'
+      click_on 'Log in with Google'
+      
+      assert_text 'Pretty, pretty please share your email with us :)'
+    end
+
+    test 'shows login page when somebody fails to login to google' do
+      OmniAuth.config.add_mock(:google_oauth2, uid: nil, info: {email: nil}, credentials: {})
+      visit '/login'
+      click_on 'Log in with Google'
+      assert_path '/login'
+      assert_text 'Login Failed'
+    end
 end
