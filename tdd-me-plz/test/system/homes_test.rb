@@ -58,6 +58,18 @@ class HomesTest < ApplicationSystemTestCase
     assert_selector "cite", text: "description 2"
   end
 
+  test "one deleted and one not deleted proposal" do
+    Proposal.create!(title: "title 1", contact: "description 1")
+    Proposal.create!(title: "title 2", contact: "description 2").soft_delete
+    visit '/'
+    assert_text "1 proposals"
+
+    assert_selector "h3", text: "title 1"
+    assert_selector "cite", text: "description 1"
+    assert_selector "h3", text: "title 2", count: 0
+    assert_selector "cite", text: "description 2", count: 0
+  end
+
   test "links to each proposal" do
     proposal1 = Proposal.create!(title: "title 1", contact: "description 1")
     proposal2= Proposal.create!(title: "title 2", contact: "description 2")

@@ -18,4 +18,13 @@ class ProposalTest < ActiveSupport::TestCase
 
     result = proposal.comments
   end
+
+  test "can soft delete" do
+    proposal = Proposal.create(title: 'yup', description: 'yup', contact: 'yup')
+    proposal.soft_delete
+    assert proposal.deleted_at.present?
+
+    proposal_ids = Proposal.not_deleted.ids
+    refute_includes proposal_ids, proposal.id
+  end
 end

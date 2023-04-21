@@ -11,20 +11,22 @@ Anonymous User
 
 Test Double User
 
-1. [] Can login using testdouble credentials
+1. [x] Can log in using testdouble credentials
 2. [x] Submit proposals
 3. [x] Can go home from any page
 4. [x] Proposals have a description
 5. [x] Proposals have contact info for the requestor
 6. [x] Proposals are visible for reference
 7. [x] Can add request comments
-8. Can remove proposal once they are complete - if it's your proposal
+8. Can soft delete proposal - if it's your proposal
+9. [x] Can log out
 
 Admin User
 
 1. Everything TestDouble user can do
 2. Admins can remove/edit/reprioritize requests
 3. Admins can add/remove other admins
+4. Can delete any proposal
 
 Post-MVP (won't do)
 

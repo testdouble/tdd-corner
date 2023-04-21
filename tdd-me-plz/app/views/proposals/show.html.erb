@@ -1,5 +1,9 @@
 <h1><%= @proposal.title %></h1>
 
+<% if @proposal.contact == '' %>
+  <button>Delete Proposal</button>
+<% end %>
+
 <%= form_with model: Comment.new do |form| %>
   <%= form.hidden_field :proposal_id, value: @proposal.id %>
   <%= form.label :new_comment, 'New Comment', class: 'form-label' %>

@@ -20,19 +20,25 @@ class LoggingInTest < ApplicationSystemTestCase
       assert_text "Welcome, employee@testdouble.com"
     end
 
-    test 'doesn"t blow up when email is nil' do
+    test 'email not provided by user' do
       OmniAuth.config.add_mock(:google_oauth2, uid: nil, info: {email: nil}, credentials: {})
       visit '/login'
       click_on 'Log in with Google'
       
-      assert_text 'Pretty, pretty please share your email with us :)'
+      assert_text 'You have not been logged in because you must provide your email address.'
     end
 
     test 'shows login page when somebody fails to login to google' do
-      OmniAuth.config.add_mock(:google_oauth2, uid: nil, info: {email: nil}, credentials: {})
+      OmniAuth.config.mock_auth[:google_oauth2] = :invalid_credentials
+      # Overriding logger so it doesn't spit out an error/warning for failure url callback
+      # See https://github.com/omniauth/omniauth/issues/583
+      OmniAuth.config.logger = Rails.logger
+      OmniAuth.config.on_failure = Proc.new { |env|
+        OmniAuth::FailureEndpoint.new(env).redirect_to_failure
+      }
       visit '/login'
       click_on 'Log in with Google'
-      assert_path '/login'
+      assert_current_path '/login'
       assert_text 'Login Failed'
     end
 end

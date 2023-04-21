@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'login', to: 'session#login'
   post 'logout', to: 'session#logout'
   get '/auth/google_oauth2/callback', to: 'session#google_callback'
+  get '/auth/failure', to: 'session#login_failure'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

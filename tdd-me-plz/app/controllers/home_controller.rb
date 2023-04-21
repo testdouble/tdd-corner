@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
     def index
-        @proposals = Proposal.all
+        @proposals = Proposal.not_deleted
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_180937) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_21_173326) do
   create_table "comments", force: :cascade do |t|
     t.text "text"
     t.integer "proposal_id", null: false
@@ -26,6 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_180937) do
     t.string "title"
     t.string "description"
     t.string "contact"
+    t.datetime "deleted_at", precision: nil
   end
 
   create_table "sessions", force: :cascade do |t|
