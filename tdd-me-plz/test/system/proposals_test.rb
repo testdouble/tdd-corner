@@ -91,9 +91,17 @@ class ProposalsTest < ApplicationSystemTestCase
     assert_selector('cite', text: 'fakeuser@tddmeplz.test')
   end
 
-  test "the delete button is shown for the user that created a proposal" do
-    proposal = Proposal.create!(title: 'title', contact: 'test@testdouble.com')
+  test "the user that created a proposal can delete it" do
+    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'fakeuser@tddmeplz.test')
     visit proposal_path(proposal)
-    assert_selector('button', text: 'Delete Proposal')
+    click_on 'Delete Proposal'
+    assert_current_path '/'
+    assert_text 'Big shiny proposal!', count:0
+  end
+
+  test "the user cannot delete other folks proposals" do
+    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
+    visit proposal_path(proposal)
+    assert_text 'Delete Proposal', count:0
   end
 end

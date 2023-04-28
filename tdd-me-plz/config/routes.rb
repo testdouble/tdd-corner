@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "home#index"
 
-  resources :proposals, only: [:new, :create, :show]
+  resources :proposals, only: [:new, :create, :show, :destroy]
 
   resources :comments, only: [:create]
 end

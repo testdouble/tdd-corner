@@ -1,7 +1,7 @@
 <h1><%= @proposal.title %></h1>
 
-<% if @proposal.contact == '' %>
-  <button>Delete Proposal</button>
+<% if @can_delete %>
+  <%= button_to 'Delete Proposal', @proposal, method: :delete %>
 <% end %>
 
 <%= form_with model: Comment.new do |form| %>

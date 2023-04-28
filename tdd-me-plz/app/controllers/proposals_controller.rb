@@ -21,5 +21,17 @@ class ProposalsController < ApplicationController
 
   def show
     @proposal = Proposal.find(params[:id])
+    @can_delete = session[:user][:email] == @proposal.contact
+  end
+
+  def destroy
+    proposal = Proposal.find(params[:id])
+    can_delete = session[:user][:email] == proposal.contact
+    if can_delete
+      proposal.soft_delete
+      redirect_to root_path
+    else
+      head :forbidden
+    end
   end
 end
