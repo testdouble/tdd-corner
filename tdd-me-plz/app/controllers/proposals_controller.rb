@@ -34,4 +34,9 @@ class ProposalsController < ApplicationController
       head :forbidden
     end
   end
+
+  def update
+    proposal = Proposal.find(params[:id])
+    proposal.update!(params.permit(:title, :description))
+  end
 end

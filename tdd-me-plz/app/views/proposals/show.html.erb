@@ -1,7 +1,16 @@
 <h1><%= @proposal.title %></h1>
+<p><%= @proposal.description %></p>
 
 <% if @can_delete %>
   <%= button_to 'Delete Proposal', @proposal, method: :delete %>
+<% end %>
+
+<%= form_with model: @proposal do |form| %>
+  <%= form.label :edit_title, 'Title', class: 'form-label' %>
+  <%= form.text_field :edit_title, class: 'form-control' %>
+  <%= form.label :edit_description, 'Description', class: 'form-label' %>
+  <%= form.text_field :edit_description, class: 'form-control' %>
+  <%= form.submit 'Edit Proposal', class: 'btn btn-primary' %>
 <% end %>
 
 <%= form_with model: Comment.new do |form| %>

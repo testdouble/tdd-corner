@@ -55,6 +55,14 @@ class ProposalsTest < ApplicationSystemTestCase
     assert_text long_description
   end
 
+  test "the proposal page shows the details of the proposal" do
+    proposal = Proposal.create!(title: 'title', contact: 'contact', description: "banana")
+    visit proposal_path(proposal)
+
+    assert_text('title')
+    assert_text('banana')
+  end
+
   test "adding a comment to an existing proposal" do
     proposal = Proposal.create!(title: 'title', contact: 'contact')
     visit proposal_path(proposal)
@@ -103,5 +111,14 @@ class ProposalsTest < ApplicationSystemTestCase
     proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
     visit proposal_path(proposal)
     assert_text 'Delete Proposal', count:0
+  end
+
+  test "update a proposal" do
+    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
+    visit proposal_path(proposal)
+    fill_in "Title", with: "new title"
+    click_on 'Edit Proposal'
+    assert_current_path proposal_path(proposal)
+    assert_text 'new title'
   end
 end

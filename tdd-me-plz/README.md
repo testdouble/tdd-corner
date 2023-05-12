@@ -18,8 +18,10 @@ Test Double User
 5. [x] Proposals have contact info for the requestor
 6. [x] Proposals are visible for reference
 7. [x] Can add request comments
-8. Can soft delete proposal - if it's your proposal
+8. [x] Can soft delete proposal - if it's your proposal
 9. [x] Can log out
+10. [ ] Can edit own proposal
+    10b. [ ] Can't edit others proposal
 
 Admin User
 
