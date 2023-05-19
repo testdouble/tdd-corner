@@ -6,11 +6,13 @@
 <% end %>
 
 <%= form_with model: @proposal do |form| %>
-  <%= form.label :edit_title, 'Title', class: 'form-label' %>
-  <%= form.text_field :edit_title, class: 'form-control' %>
+  <%= form.label :title, 'Title', class: 'form-label' %>
+  <%= form.text_field :title, class: 'form-control' %>
   <%= form.label :edit_description, 'Description', class: 'form-label' %>
   <%= form.text_field :edit_description, class: 'form-control' %>
-  <%= form.submit 'Edit Proposal', class: 'btn btn-primary' %>
+  <% if @can_edit %>
+    <%= form.submit 'Edit Proposal', class: 'btn btn-primary' %>
+  <% end %>
 <% end %>
 
 <%= form_with model: Comment.new do |form| %>

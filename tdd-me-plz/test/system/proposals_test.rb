@@ -110,15 +110,27 @@ class ProposalsTest < ApplicationSystemTestCase
   test "the user cannot delete other folks proposals" do
     proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
     visit proposal_path(proposal)
-    assert_text 'Delete Proposal', count:0
+    assert_no_button 'Delete Proposal'
   end
 
   test "update a proposal" do
-    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
+    # This is currently the wrong contact
+    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'fakeuser@tddmeplz.test')
     visit proposal_path(proposal)
     fill_in "Title", with: "new title"
     click_on 'Edit Proposal'
     assert_current_path proposal_path(proposal)
     assert_text 'new title'
   end
+
+  test "the user cannot edit other folks proposals" do
+    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
+    visit proposal_path(proposal)
+    fill_in "Title", with: "new title"
+    assert_no_button 'Edit Proposal'
+  end
+
+  # test "I can still update my proposal if my email changes" do
+
+  # end
 end

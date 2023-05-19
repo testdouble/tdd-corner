@@ -20,8 +20,9 @@ Test Double User
 7. [x] Can add request comments
 8. [x] Can soft delete proposal - if it's your proposal
 9. [x] Can log out
-10. [ ] Can edit own proposal
-    10b. [ ] Can't edit others proposal
+10. [x] Can edit own proposal
+11. [x] Can't edit others proposal
+12. [ ] I can still update my proposal if my email changes
 
 Admin User
 
