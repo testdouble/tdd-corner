@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class ProposalsTest < ApplicationSystemTestCase
   setup do
-    visit '/test_login?email=fakeuser@tddmeplz.test'
+    visit "/test_login?email=#{users(:normal).email}"
   end
 
   test "create a proposal" do
@@ -113,6 +113,14 @@ class ProposalsTest < ApplicationSystemTestCase
     assert_no_button 'Delete Proposal'
   end
 
+  test "admins can delete other folks' proposal" do
+    visit "/test_login?email=#{users(:admin).email}"
+
+    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
+    visit proposal_path(proposal)
+    assert_button 'Delete Proposal'
+  end
+
   test "update a proposal" do
     # This is currently the wrong contact
     proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'fakeuser@tddmeplz.test')
@@ -126,8 +134,14 @@ class ProposalsTest < ApplicationSystemTestCase
   test "the user cannot edit other folks proposals" do
     proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
     visit proposal_path(proposal)
-    fill_in "Title", with: "new title"
     assert_no_button 'Edit Proposal'
+  end
+
+  test "admin user can edit other folks proposals" do
+    visit "/test_login?email=#{users(:admin).email}"
+    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
+    visit proposal_path(proposal)
+    assert_button 'Edit Proposal'
   end
 
   # test "I can still update my proposal if my email changes" do

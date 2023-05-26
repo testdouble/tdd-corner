@@ -17,6 +17,14 @@ class ProposalsRequestTest < ActionDispatch::IntegrationTest
     assert_equal 403, status
   end
 
+  test 'can delete others proposals as an admin' do
+    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
+    get '/test_login?email=admin@tddmeplz.test'
+    status = delete proposal_path(proposal)
+    # something good happens
+    assert_equal 200, status
+  end
+
   test 'cannot edit others proposals' do
     proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
     get '/test_login?email=fakeuser@tddmeplz.test'

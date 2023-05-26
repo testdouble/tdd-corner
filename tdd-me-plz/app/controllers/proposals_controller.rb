@@ -20,9 +20,10 @@ class ProposalsController < ApplicationController
   end
 
   def show
+    user = User.find_by(email: session[:user][:email])
     @proposal = Proposal.find(params[:id])
-    @can_delete = owns?(proposal: @proposal)
-    @can_edit = owns?(proposal: @proposal)
+    @can_delete = owns?(proposal: @proposal) || user.admin?
+    @can_edit = owns?(proposal: @proposal) || user.admin?
   end
 
   def destroy
