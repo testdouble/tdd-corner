@@ -3,6 +3,7 @@ class Proposal < ApplicationRecord
   validates :contact, presence: true
 
   has_many :comments
+  belongs_to :owner, class_name: User.to_s
 
   def soft_delete
     self.deleted_at = Time.zone.now

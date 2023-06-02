@@ -27,9 +27,10 @@ Test Double User
 Admin User
 
 1. Everything TestDouble user can do
-2. Admins can remove/edit/reprioritize requests
+2. Admins can remove/edit/reprioritize proposals
 3. Admins can add/remove other admins
-4. Can delete any proposal
+4. [x] Can delete any proposal
+5. [x] Can edit any proposal
 
 Post-MVP (won't do)
 

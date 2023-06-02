@@ -27,4 +27,9 @@ class ProposalTest < ActiveSupport::TestCase
     proposal_ids = Proposal.not_deleted.ids
     refute_includes proposal_ids, proposal.id
   end
+
+  test "can access owner" do
+    proposal = Proposal.create(title: 'yup', description: 'yup', owner: users(:normal))
+    assert_equal proposal.owner, users(:normal)
+  end
 end

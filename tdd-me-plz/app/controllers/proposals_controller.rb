@@ -20,15 +20,14 @@ class ProposalsController < ApplicationController
   end
 
   def show
-    user = User.find_by(email: session[:user][:email])
     @proposal = Proposal.find(params[:id])
-    @can_delete = owns?(proposal: @proposal) || user.admin?
-    @can_edit = owns?(proposal: @proposal) || user.admin?
+    @can_delete = owns?(proposal: @proposal) || current_user.admin?
+    @can_edit = owns?(proposal: @proposal) || current_user.admin?
   end
 
   def destroy
     proposal = Proposal.find(params[:id])
-    if owns?(proposal: proposal)
+    if owns?(proposal: proposal) || current_user.admin?
       proposal.soft_delete
       redirect_to root_path
     else
@@ -38,7 +37,7 @@ class ProposalsController < ApplicationController
 
   def update
     proposal = Proposal.find(params[:id])
-    if owns?(proposal:proposal)
+    if owns?(proposal:proposal) || current_user.admin?
       proposal.update!(params.require(:proposal).permit(:title, :description))
       redirect_to proposal_path(proposal)
     else

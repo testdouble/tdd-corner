@@ -141,7 +141,10 @@ class ProposalsTest < ApplicationSystemTestCase
     visit "/test_login?email=#{users(:admin).email}"
     proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
     visit proposal_path(proposal)
-    assert_button 'Edit Proposal'
+    fill_in "Title", with: "new title"
+    click_on 'Edit Proposal'
+    assert_current_path proposal_path(proposal)
+    assert_text 'new title'
   end
 
   # test "I can still update my proposal if my email changes" do
