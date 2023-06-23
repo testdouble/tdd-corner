@@ -2,7 +2,7 @@ require "test_helper"
 
 class CommentTest < ActiveSupport::TestCase
   test "can create a comment on a proposal" do
-    proposal = Proposal.create(title: 'yup', description: 'yup', contact: 'yup')
+    proposal = Proposal.create!(title: 'yup', description: 'yup', owner: users(:normal))
     comment = Comment.create!(text: "hellooooo", proposal: proposal)
 
     assert comment.valid?
@@ -10,7 +10,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "can create more than one comment" do
-    proposal = Proposal.create(title: 'yup', description: 'yup', contact: 'yup')
+    proposal = Proposal.create!(title: 'yup', description: 'yup', owner: users(:normal))
     comment = Comment.create!(text: "hellooooo", proposal: proposal)
     comment2 = Comment.create!(text: "goodbyeeeee", proposal: proposal)
 

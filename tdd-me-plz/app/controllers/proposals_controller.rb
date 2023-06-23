@@ -7,7 +7,8 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.create(
       title: params[:proposal][:title],
       description: params[:proposal][:description],
-      contact: session[:user][:email]
+      contact: session[:user][:email],
+      owner: current_user
     )
 
     if @proposal.valid?
@@ -47,6 +48,6 @@ class ProposalsController < ApplicationController
 
   private
   def owns?(proposal:)
-    session[:user][:email] == proposal.contact
+    session[:user][:email] == proposal.owner.email
   end
 end

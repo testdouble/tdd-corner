@@ -37,7 +37,7 @@ class HomesTest < ApplicationSystemTestCase
   end
 
   test "one proposal" do
-    proposal = Proposal.create!(title: "foo title", description: "foo description", contact: "Bob Barker")
+    proposal = Proposal.create!(title: "foo title", description: "foo description", owner: users(:normal))
     visit '/'
     assert_text "1 proposal"
 
@@ -47,8 +47,8 @@ class HomesTest < ApplicationSystemTestCase
   end
 
   test "two proposals" do
-    Proposal.create!(title: "title 1", contact: "description 1")
-    Proposal.create!(title: "title 2", contact: "description 2")
+    Proposal.create!(title: "title 1", owner: users(:normal))
+    Proposal.create!(title: "title 2", owner: users(:normal))
     visit '/'
     assert_text "2 proposals"
 
@@ -59,8 +59,8 @@ class HomesTest < ApplicationSystemTestCase
   end
 
   test "one deleted and one not deleted proposal" do
-    Proposal.create!(title: "title 1", contact: "description 1")
-    Proposal.create!(title: "title 2", contact: "description 2").soft_delete
+    Proposal.create!(title: "title 1", owner: users(:normal))
+    Proposal.create!(title: "title 2", owner: users(:normal)).soft_delete
     visit '/'
     assert_text "1 proposals"
 
@@ -71,8 +71,8 @@ class HomesTest < ApplicationSystemTestCase
   end
 
   test "links to each proposal" do
-    proposal1 = Proposal.create!(title: "title 1", contact: "description 1")
-    proposal2= Proposal.create!(title: "title 2", contact: "description 2")
+    proposal1 = Proposal.create!(title: "title 1", owner: users(:normal))
+    proposal2 = Proposal.create!(title: "title 2", owner: users(:normal))
 
     visit '/'
     click_link("Show", :match => :first)
@@ -84,7 +84,7 @@ class HomesTest < ApplicationSystemTestCase
     click_link("TDD Me Plz")
     assert_current_path "/"
 
-    proposal1 = Proposal.create!(title: "title 1", contact: "description 1")
+    proposal1 = Proposal.create!(title: "title 1", owner: users(:normal))
 
     visit "/proposals/#{proposal1.id}"
     click_link("TDD Me Plz")

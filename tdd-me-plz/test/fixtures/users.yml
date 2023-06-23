@@ -1,6 +1,9 @@
 normal:
   email: fakeuser@tddmeplz.test
 
+abby_normal:
+  email: abnormal@tddmeplz.test
+
 admin:
   admin: true
   email: admin@tddmeplz.test

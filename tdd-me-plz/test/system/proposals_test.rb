@@ -56,7 +56,7 @@ class ProposalsTest < ApplicationSystemTestCase
   end
 
   test "the proposal page shows the details of the proposal" do
-    proposal = Proposal.create!(title: 'title', contact: 'contact', description: "banana")
+    proposal = Proposal.create!(title: 'title', description: "banana", owner: users(:normal))
     visit proposal_path(proposal)
 
     assert_text('title')
@@ -64,7 +64,7 @@ class ProposalsTest < ApplicationSystemTestCase
   end
 
   test "adding a comment to an existing proposal" do
-    proposal = Proposal.create!(title: 'title', contact: 'contact')
+    proposal = Proposal.create!(title: 'title', owner: users(:normal))
     visit proposal_path(proposal)
 
     fill_in "New Comment", with: "first!"
@@ -74,7 +74,7 @@ class ProposalsTest < ApplicationSystemTestCase
   end
 
   test "adding multiple comments to an existing proposal" do
-    proposal = Proposal.create!(title: 'title', contact: 'contact')
+    proposal = Proposal.create!(title: 'title', owner: users(:normal))
     visit proposal_path(proposal)
 
     fill_in "New Comment", with: "first!"
@@ -90,7 +90,7 @@ class ProposalsTest < ApplicationSystemTestCase
   end
 
   test "a comment should show the author" do
-    proposal = Proposal.create!(title: 'title', contact: 'contact')
+    proposal = Proposal.create!(title: 'title', owner: users(:normal))
 
     visit proposal_path(proposal)
     fill_in "New Comment", with: "first!"
@@ -100,7 +100,7 @@ class ProposalsTest < ApplicationSystemTestCase
   end
 
   test "the user that created a proposal can delete it" do
-    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'fakeuser@tddmeplz.test')
+    proposal = Proposal.create!(title: 'Big shiny proposal!', owner: users(:normal))
     visit proposal_path(proposal)
     click_on 'Delete Proposal'
     assert_current_path '/'
@@ -108,7 +108,7 @@ class ProposalsTest < ApplicationSystemTestCase
   end
 
   test "the user cannot delete other folks proposals" do
-    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
+    proposal = Proposal.create!(title: 'Big shiny proposal!', owner: users(:abby_normal))
     visit proposal_path(proposal)
     assert_no_button 'Delete Proposal'
   end
@@ -116,14 +116,14 @@ class ProposalsTest < ApplicationSystemTestCase
   test "admins can delete other folks' proposal" do
     visit "/test_login?email=#{users(:admin).email}"
 
-    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
+    proposal = Proposal.create!(title: 'Big shiny proposal!', owner: users(:normal))
     visit proposal_path(proposal)
     assert_button 'Delete Proposal'
   end
 
   test "update a proposal" do
     # This is currently the wrong contact
-    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'fakeuser@tddmeplz.test')
+    proposal = Proposal.create!(title: 'Big shiny proposal!', owner: users(:normal))
     visit proposal_path(proposal)
     fill_in "Title", with: "new title"
     click_on 'Edit Proposal'
@@ -132,14 +132,14 @@ class ProposalsTest < ApplicationSystemTestCase
   end
 
   test "the user cannot edit other folks proposals" do
-    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
+    proposal = Proposal.create!(title: 'Big shiny proposal!', owner: users(:abby_normal))
     visit proposal_path(proposal)
     assert_no_button 'Edit Proposal'
   end
 
   test "admin user can edit other folks proposals" do
     visit "/test_login?email=#{users(:admin).email}"
-    proposal = Proposal.create!(title: 'Big shiny proposal!', contact: 'someoneelse@tddmeplz.test')
+    proposal = Proposal.create!(title: 'Big shiny proposal!', owner: users(:normal))
     visit proposal_path(proposal)
     fill_in "Title", with: "new title"
     click_on 'Edit Proposal'

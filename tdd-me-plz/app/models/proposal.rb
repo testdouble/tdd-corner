@@ -1,6 +1,5 @@
 class Proposal < ApplicationRecord
   validates :title, presence: true
-  validates :contact, presence: true
 
   has_many :comments
   belongs_to :owner, class_name: User.to_s
