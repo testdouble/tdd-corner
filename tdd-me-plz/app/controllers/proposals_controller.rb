@@ -7,7 +7,6 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.create(
       title: params[:proposal][:title],
       description: params[:proposal][:description],
-      contact: session[:user][:email],
       owner: current_user
     )
 

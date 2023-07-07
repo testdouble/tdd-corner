@@ -22,7 +22,9 @@ Test Double User
 9. [x] Can log out
 10. [x] Can edit own proposal
 11. [x] Can't edit others proposal
-12. [ ] I can still update my proposal if my email changes
+12. [x] I can still update my proposal if my email changes
+13. [x] Proposal ownership is maintained when a user's email changes
+14. [ ] Comment ownership is maintained when a user's email changes
 
 Admin User
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_02_175610) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_06_178203) do
   create_table "comments", force: :cascade do |t|
     t.text "text"
     t.integer "proposal_id", null: false
@@ -25,7 +25,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_02_175610) do
     t.datetime "updated_at", null: false
     t.string "title"
     t.string "description"
-    t.string "contact"
     t.datetime "deleted_at", precision: nil
     t.integer "owner_id"
     t.index ["owner_id"], name: "index_proposals_on_owner_id"

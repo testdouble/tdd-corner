@@ -10,14 +10,13 @@ class ProposalsRequestTest < ActionDispatch::IntegrationTest
   end
 
   test 'can edit own proposals after email change' do
-    # proposal = Proposal.create!(title: 'Big shiny proposal!', description: 'describey')
-    # user = User.find_by(email: 'fakeuser@tddmeplz.test')
-    # user.update!(email: 'newfakeuseremail@tddmeplz.test')
-    # get '/test_login?email=newfakeuseremail@tddmeplz.test'
-    # status = patch(proposal_path(proposal), params: {proposal: {title: 'New Title'}})
-    # assert_equal proposal.reload.title, 'New Title'
-    # assert_equal proposal.reload.description, 'describey'
-    skip
+    user = users(:normal)
+    proposal = Proposal.create!(title: 'Big shiny proposal!', description: 'describey', owner: user)
+    user.update!(email: 'newfakeuseremail@tddmeplz.test')
+    get '/test_login?email=newfakeuseremail@tddmeplz.test'
+    status = patch(proposal_path(proposal), params: {proposal: {title: 'New Title'}})
+    assert_equal proposal.reload.title, 'New Title'
+    assert_equal proposal.reload.description, 'describey'
   end
 
   test 'cannot delete others proposals' do

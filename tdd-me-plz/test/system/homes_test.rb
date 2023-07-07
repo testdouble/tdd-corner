@@ -43,7 +43,7 @@ class HomesTest < ApplicationSystemTestCase
 
     assert_selector "h3", text: "foo title"
     assert_selector "p", text: "foo description"
-    assert_selector "cite", text: "Bob Barker"
+    assert_selector "cite", text: users(:normal).email
   end
 
   test "two proposals" do
@@ -53,9 +53,9 @@ class HomesTest < ApplicationSystemTestCase
     assert_text "2 proposals"
 
     assert_selector "h3", text: "title 1"
-    assert_selector "cite", text: "description 1"
+    assert_selector "cite", text: users(:normal).email
     assert_selector "h3", text: "title 2"
-    assert_selector "cite", text: "description 2"
+    assert_selector "cite", text: users(:normal).email
   end
 
   test "one deleted and one not deleted proposal" do
@@ -65,9 +65,8 @@ class HomesTest < ApplicationSystemTestCase
     assert_text "1 proposals"
 
     assert_selector "h3", text: "title 1"
-    assert_selector "cite", text: "description 1"
+    assert_selector "cite", text: users(:normal).email, count: 1
     assert_selector "h3", text: "title 2", count: 0
-    assert_selector "cite", text: "description 2", count: 0
   end
 
   test "links to each proposal" do

@@ -16,7 +16,7 @@
         <h3 class="card-title"><%= item.title %></h3>
         <p class="card-text">
           <%= item.description %>
-          <cite><%= item.contact %></cite>
+          <cite><%= item.owner.email %></cite>
         </p>
         <%= link_to 'Show', proposal_path(item), class: 'btn btn-outline-primary' %>
       </div>
