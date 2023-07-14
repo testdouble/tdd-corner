@@ -18,8 +18,8 @@ class ProposalTest < ActiveSupport::TestCase
 
   test "can have comments" do
     proposal = Proposal.create!(title: 'yup', description: 'yup', owner: users(:normal))
-    comment = Comment.create!(text: "hellooooo", proposal: proposal)
-    comment2 = Comment.create!(text: "goodbyeeeee", proposal: proposal)
+    comment = Comment.create!(text: "hellooooo", proposal: proposal, owner: users(:normal))
+    comment2 = Comment.create!(text: "goodbyeeeee", proposal: proposal, owner: users(:normal))
 
     result = proposal.comments
     assert_equal(2, result.size)

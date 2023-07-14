@@ -24,7 +24,7 @@ class LoggingInTest < ApplicationSystemTestCase
       OmniAuth.config.add_mock(:google_oauth2, uid: nil, info: {email: nil}, credentials: {})
       visit '/login'
       click_on 'Log in with Google'
-      
+
       assert_text 'You have not been logged in because you must provide your email address.'
     end
 
@@ -40,5 +40,17 @@ class LoggingInTest < ApplicationSystemTestCase
       click_on 'Log in with Google'
       assert_current_path '/login'
       assert_text 'Login Failed'
+    end
+
+    test 'should reflect new email when email changed' do
+      user = User.create!(email: "employee@testdouble.com", google_uid: "12345")
+
+      OmniAuth.config.add_mock(:google_oauth2, uid: "12345", info: {email: "new_name@testdouble.com"}, credentials: {token: 1})
+      visit '/login'
+      click_on 'Log in with Google'
+      assert_text "Welcome, new_name@testdouble.com"
+
+      # Need to check user from database on login
+      assert_equal "new_name@testdouble.com", user.reload.email
     end
 end

@@ -26,7 +26,7 @@
 <% @proposal.comments.each do |comment| %>
   <li>
   <p><%= comment.text %></p>
-  <cite><%= comment.author %></cite>
+  <cite><%= comment.owner.email %></cite>
   </li>
   <% end %>
 </ul>

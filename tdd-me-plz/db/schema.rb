@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_06_178203) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_14_174659) do
   create_table "comments", force: :cascade do |t|
     t.text "text"
     t.integer "proposal_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "author"
+    t.integer "owner_id"
+    t.index ["owner_id"], name: "index_comments_on_owner_id"
     t.index ["proposal_id"], name: "index_comments_on_proposal_id"
   end
 
@@ -44,6 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_06_178203) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "google_uid"
   end
 
   add_foreign_key "comments", "proposals"
