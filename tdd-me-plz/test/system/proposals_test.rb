@@ -146,8 +146,4 @@ class ProposalsTest < ApplicationSystemTestCase
     assert_current_path proposal_path(proposal)
     assert_text 'new title'
   end
-
-  # test "I can still update my proposal if my email changes" do
-
-  # end
 end

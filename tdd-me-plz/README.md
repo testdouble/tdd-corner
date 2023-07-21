@@ -6,53 +6,52 @@ An application for submitting TDD (client) problems for TDD corner
 
 Anonymous User
 
-1. Roboprotection (no spam)
-2. Can login
+- [X] Can access login page
 
 Test Double User
 
-1. [x] Can log in using testdouble credentials
-2. [x] Submit proposals
-3. [x] Can go home from any page
-4. [x] Proposals have a description
-5. [x] Proposals have contact info for the requestor
-6. [x] Proposals are visible for reference
-7. [x] Can add request comments
-8. [x] Can soft delete proposal - if it's your proposal
-9. [x] Can log out
-10. [x] Can edit own proposal
-11. [x] Can't edit others proposal
-12. [x] I can still update my proposal if my email changes
-13. [x] Proposal ownership is maintained when a user's email changes
-14. [ ] Comment ownership is maintained when a user's email changes
+- [x] Can log in using testdouble credentials
+- [X] Creates a new user upon login
+- [x] Submit proposals
+- [x] Can go home from any page
+- [x] Proposals have a description
+- [x] Proposals have contact info for the requestor
+- [x] Proposals are visible for reference
+- [x] Can add request comments
+- [x] Can soft delete proposal - if it's your proposal
+- [x] Can log out
+- [x] Can edit own proposal
+- [x] Can't edit others proposal
+- [x] I can still update my proposal if my email changes
+- [x] Proposal ownership is maintained when a user's email changes
 
 Admin User
 
-1. Everything TestDouble user can do
-2. Admins can remove/edit/reprioritize proposals
-3. Admins can add/remove other admins
-4. [x] Can delete any proposal
-5. [x] Can edit any proposal
+- Everything TestDouble user can do
+- Admins can remove/edit/reprioritize proposals
+- Admins can add/remove other admins
+- [x] Can delete any proposal
+- [x] Can edit any proposal
 
 Post-MVP (won't do)
 
-1. Proposals notify someone/somehow
-2. Defined Proposals statuses
+- Proposals notify someone/somehow
+- Defined Proposals statuses
 
 ## Refactoring ideas
 
-1. Style the form
-2. Custom test helpers
-3. Move root to proposals/index
-4. Move tests out of system/homes_test that are about the layout, not about the home page specifically
-5. Fix the omniauth warning about GET/POST
-6. Test login endpoint should only be accessible while testing
+- Style the form
+- Custom test helpers
+- Move root to proposals/index
+- Move tests out of system/homes_test that are about the layout, not about the home page specifically
+- Fix the omniauth warning about GET/POST
+- Test login endpoint should only be accessible while testing
 
 ## Proposal Lifetime
 
-1. User submits proposal
-2. Admin accepts/rejects
-3. Proposal ends
+- User submits proposal
+- Admin accepts/rejects
+- Proposal ends
 
 # README
 
