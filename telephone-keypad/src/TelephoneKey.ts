@@ -10,12 +10,28 @@ export class TelephoneKey extends LitElement {
     }
   `;
 
+  constructor() {
+    super();
+    this.addEventListener('click', this._handleClick);
+  }
+
   @property({ type: Array }) options = [];
+
+  @property({ type: String }) currentCharacter = "";
+
+  private index = 0;
+
+  private _handleClick(event: Event) {
+    this.currentCharacter = this.options[this.index];
+    this.index = (this.index + 1) % this.options.length;
+  }
 
   render() {
     return html`
-      <h2>${ this.options[this.options.length - 1] }</h2>
-      <small> ${ this.options.slice(0, 3).join('') }</small>
+      <button>
+        <h2>${ this.options[this.options.length - 1] }</h2>
+        <small> ${ this.options.slice(0, 3).join('') }</small>
+      </button>
     `;
   }
 }

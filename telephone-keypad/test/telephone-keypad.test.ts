@@ -4,29 +4,19 @@ import { TelephoneKeypad } from '../src/TelephoneKeypad.js';
 import '../src/telephone-keypad.js';
 
 describe('TelephoneKeypad', () => {
-  it('has a default header "Hey there" and counter 5', async () => {
-    const el = await fixture<TelephoneKeypad>(html`<telephone-keypad></telephone-keypad>`);
+  
 
-    expect(el.header).to.equal('Hey there');
-    expect(el.counter).to.equal(5);
-  });
+  it('keypad can contain a key', async () => {
+    const el = await fixture<TelephoneKeypad>(html`<telephone-keypad><telephone-key options='["D", "E", "F", "2"]' /></telephone-keypad>`);
 
-  it('increases the counter on button click', async () => {
-    const el = await fixture<TelephoneKeypad>(html`<telephone-keypad></telephone-keypad>`);
-    el.shadowRoot!.querySelector('button')!.click();
+    await expect(el.querySelector('telephone-key')).to.exist;
+  })
 
-    expect(el.counter).to.equal(6);
-  });
+  it('clicks and we can see current character in our output property', async () => {
+    const el = await fixture<TelephoneKeypad>(html`<telephone-keypad><telephone-key options='["D", "E", "F", "2"]' /></telephone-keypad>`);
 
-  it('can override the header via attribute', async () => {
-    const el = await fixture<TelephoneKeypad>(html`<telephone-keypad header="attribute header"></telephone-keypad>`);
+    el.querySelector('telephone-key')?.click();
 
-    expect(el.header).to.equal('attribute header');
-  });
-
-  it('passes the a11y audit', async () => {
-    const el = await fixture<TelephoneKeypad>(html`<telephone-keypad></telephone-keypad>`);
-
-    await expect(el).shadowDom.to.be.accessible();
-  });
+    await expect(el.output).to.equal("D");
+  })
 });
