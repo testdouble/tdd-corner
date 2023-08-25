@@ -4,7 +4,7 @@
 
 ### Telephone Key
 
-- [ ] accepts an "array" of character options that it can generate
+- [X] accepts an array of character options that it can generate
 - [ ] pressing a key rotates through options
 - [ ] preview value is accessible through script or something - a callback?? properties??
 - [ ] input is time sensitive - 1 second delay before it "commits" to a character

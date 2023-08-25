@@ -14,6 +14,7 @@
   <script type="module">
     import { html, render } from 'lit';
     import '../dist/src/telephone-keypad.js';
+    import '../dist/src/telephone-key.js';
 
     const header = 'Hello owc World!';
     render(
@@ -21,6 +22,7 @@
         <telephone-keypad .header=${header}>
           some light-dom
         </telephone-keypad>
+        <telephone-key>hello</telephone-key>
       `,
       document.querySelector('#demo')
     );
