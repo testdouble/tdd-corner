@@ -24,6 +24,7 @@ export class TelephoneKey extends LitElement {
   private _handleClick(event: Event) {
     this.currentCharacter = this.options[this.index];
     this.index = (this.index + 1) % this.options.length;
+    console.log("current character:", this.currentCharacter)
   }
 
   render() {

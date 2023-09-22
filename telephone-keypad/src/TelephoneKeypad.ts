@@ -1,5 +1,6 @@
 import { html, css, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
+import { TelephoneKey } from './TelephoneKey';
 
 export class TelephoneKeypad extends LitElement {
   static styles = css`
@@ -10,18 +11,26 @@ export class TelephoneKeypad extends LitElement {
     }
   `;
 
+  constructor() {
+    super();
+    this.addEventListener('click', this._handleClick);
+  }
+
   @property({ type: String }) header = 'Hey there';
 
   @property({ type: Number }) counter = 5;
 
-  __increment() {
-    this.counter += 1;
+  @property({ type: String }) output = '';
+
+  private _handleClick(event: Event) {
+    if (event.target) {
+      const element = event.target as TelephoneKey;
+      this.output = element.currentCharacter;
+    }
   }
 
   render() {
     return html`
-      <h2>${this.header} Nr. ${this.counter}!</h2>
-      <button @click=${this.__increment}>increment</button>
     `;
   }
 }
