@@ -19,10 +19,10 @@
     const header = 'Hello owc World!';
     render(
       html`
-        <telephone-keypad .header=${header}>
-          some light-dom
+        <telephone-keypad>
+          <telephone-key style="width:100px;height:100px" options='["A", "B", "C", "1"]' />
+          <telephone-key style="width:100px;height:100px" options='["D", "E", "F", "2"]' />
         </telephone-keypad>
-        <telephone-key options='["A","B","C","1"]'>hello</telephone-key>
       `,
       document.querySelector('#demo')
     );

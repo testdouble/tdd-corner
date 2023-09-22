@@ -22,9 +22,9 @@ export class TelephoneKey extends LitElement {
   private index = 0;
 
   private _handleClick(event: Event) {
+    console.log('this.options for this click is', this.options);
     this.currentCharacter = this.options[this.index];
     this.index = (this.index + 1) % this.options.length;
-    console.log("current character:", this.currentCharacter)
   }
 
   render() {

@@ -23,8 +23,8 @@ export class TelephoneKeypad extends LitElement {
   @property({ type: String }) output = '';
 
   private _handleClick(event: Event) {
-    if (event.target) {
-      const element = event.target as TelephoneKey;
+    if (event.target instanceof TelephoneKey) {
+      const element = event.target;
       this.output = element.currentCharacter;
     }
   }
