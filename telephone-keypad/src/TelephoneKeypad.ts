@@ -22,15 +22,29 @@ export class TelephoneKeypad extends LitElement {
 
   @property({ type: String }) output = '';
 
+
+  private lastKeyClicked: TelephoneKey|any = undefined;
+
+  private optionIndex = 0;
+
   private _handleClick(event: Event) {
     if (event.target instanceof TelephoneKey) {
       const element = event.target;
-      this.output = element.currentCharacter;
+
+      if (this.lastKeyClicked === element) {
+        this.optionIndex += 1;
+      } else {
+        this.optionIndex = 0;
+      }
+      this.lastKeyClicked = element;
+
+      this.output = element.optionAt(this.optionIndex);
     }
   }
 
   render() {
     return html`
+      <slot></slot>
     `;
   }
 }

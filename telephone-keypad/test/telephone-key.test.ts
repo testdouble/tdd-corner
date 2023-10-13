@@ -22,25 +22,9 @@ describe('TelephoneKey', () => {
     await expect(el.shadowRoot?.querySelector('small')?.textContent?.trim()).to.equal('ABC');
   })
 
-  it('updates the to be emitted property when pressed', async () => {
-    const el = await fixture<TelephoneKey>(html`<telephone-key options='["A","B","C","1"]'></telephone-key>`);
-
-    el.click();
-
-    await expect(el.currentCharacter).to.equal('A')
-
-    el.click();
-
-    await expect(el.currentCharacter).to.equal('B')
-  })
-
-  it('wraps around the character thing when enough clicks happen I dunno', async () => {
+  it('wraps around if given an out of bounds index', async () => {
     const el = await fixture<TelephoneKey>(html`<telephone-key options='["A","B"]'></telephone-key>`);
 
-    el.click();
-    el.click();
-    el.click();
-
-    await expect(el.currentCharacter).to.equal('A')
+    expect(el.optionAt(2)).to.equal('A');
   })
 });
