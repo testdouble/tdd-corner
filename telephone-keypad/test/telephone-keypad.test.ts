@@ -98,14 +98,62 @@ describe('TelephoneKeypad', () => {
     await expect(el.output).to.equal("A");
   })
 
-  it('has a textbox sibling', async () => {
-    const el = await fixture<TelephoneKeypad>(html`<input type="text"></input><telephone-keypad><telephone-key options='["D", "E", "F", "2"]' ></telephone-key></telephone-keypad>`);
+  it('sends value to associated text input', async () => {
+    const el = await fixture<HTMLElement>(html`
+      <div>
+        <input type="text" name="something" />
+        <telephone-keypad for="something" >
+          <telephone-key options='["D", "E", "F", "2"]' ></telephone-key>
+        </telephone-keypad>
+      </div>
+    `);
 
     const key = el.querySelectorAll('telephone-key')[0] as HTMLElement;
     key.click();
 
     const input = el.querySelector('input');
-    await expect(input.value).to.equal("D");
+    await expect(input?.value).to.equal("D");
   })
 
+  it('commits the last value clicked when key clicked multiple times', async() => {
+    const el = await fixture<HTMLElement>(html`
+      <div>
+        <input type="text" name="something" />
+        <telephone-keypad for="something">
+          <telephone-key options='["D", "E", "F", "2"]' ></telephone-key>
+        </telephone-keypad>
+      </div>
+    `);
+
+    const key = el.querySelector('telephone-key') as HTMLElement;
+    key.click();
+    key.click();
+
+    const input = el.querySelector('input');
+    await expect(input?.value).to.equal("E");
+  });
+
+  it('sends value to associated text input after a delay', async () => {
+    const el = await fixture<HTMLElement>(html`
+      <div>
+        <input type="text" name="something" delay="1000" />
+        <telephone-keypad for="something" >
+          <telephone-key options='["D", "E", "F", "2"]' ></telephone-key>
+        </telephone-keypad>
+      </div>
+    `);
+
+    const key = el.querySelectorAll('telephone-key')[0] as HTMLElement;
+    const input = el.querySelector('input');
+
+    key.click();
+    await expect(input?.value).to.equal("");
+
+    // sleep 1000ms
+    await new Promise((res) => {
+      setTimeout(res, 1000);
+    })
+
+    await expect(input?.value).to.equal("D");
+  })
 });

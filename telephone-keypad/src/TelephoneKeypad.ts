@@ -22,6 +22,10 @@ export class TelephoneKeypad extends LitElement {
 
   @property({ type: String }) output = '';
 
+  @property({ type: String }) for = '';
+
+  @property({ type: Number }) delay = 0;
+
 
   private lastKeyClicked: TelephoneKey|any = undefined;
 
@@ -39,7 +43,16 @@ export class TelephoneKeypad extends LitElement {
       this.lastKeyClicked = element;
 
       this.output = element.optionAt(this.optionIndex);
+      const inputs = this._findInput();
+      
+      for(const input of inputs as HTMLInputElement[]) {
+        input.value = this.output
+      }
     }
+  }
+
+  private _findInput() {
+    return Array.from(document.querySelectorAll(`input[name="${this.for}"]`));
   }
 
   render() {
