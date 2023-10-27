@@ -20,36 +20,56 @@ export class TelephoneKeypad extends LitElement {
 
   @property({ type: Number }) counter = 5;
 
-  @property({ type: String }) output = '';
+  @property({ type: String }) testOutput = '';
 
   @property({ type: String }) for = '';
 
-  @property({ type: Number }) delay = 0;
+  @property({ type: Number }) delay = 1;
 
+  private pendingTimeout: ReturnType<typeof setTimeout>|null = null;
 
   private lastKeyClicked: TelephoneKey|any = undefined;
 
   private optionIndex = 0;
 
   private _handleClick(event: Event) {
-    if (event.target instanceof TelephoneKey) {
-      const element = event.target;
+    if (!(event.target instanceof TelephoneKey)) return;
 
-      if (this.lastKeyClicked === element) {
-        this.optionIndex += 1;
-      } else {
-        this.optionIndex = 0;
-      }
-      this.lastKeyClicked = element;
-
-      this.output = element.optionAt(this.optionIndex);
+    const output = this._determineKeyOutput(event.target);
+    
+    // Hook for testing - TODO be better
+    this.testOutput = output;
+    
+    const commit = () => {
       const inputs = this._findInput();
-      
       for(const input of inputs as HTMLInputElement[]) {
-        input.value = this.output
+        input.value += output;
       }
     }
+
+    if(this.pendingTimeout) {
+      clearTimeout(this.pendingTimeout);
+      this.pendingTimeout = null;
+    }
+
+    if(this.delay) {
+      this.pendingTimeout = setTimeout(commit, this.delay);
+    } else {
+      commit();
+    }
   }
+
+  private _determineKeyOutput = (key: TelephoneKey) => {
+    if (this.lastKeyClicked === key) {
+      this.optionIndex += 1;
+    } else {
+      this.optionIndex = 0;
+    }
+    this.lastKeyClicked = key;
+
+    return key.optionAt(this.optionIndex);
+  }
+
 
   private _findInput() {
     return Array.from(document.querySelectorAll(`input[name="${this.for}"]`));
