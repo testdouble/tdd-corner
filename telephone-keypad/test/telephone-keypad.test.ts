@@ -4,9 +4,19 @@ import { TelephoneKeypad } from '../src/TelephoneKeypad.js';
 import { TelephoneKey } from '../src/TelephoneKey.js';
 import '../src/telephone-keypad.js';
 import '../src/telephone-key.js';
+import * as sinon from 'sinon';
 
 describe('TelephoneKeypad', () => {
 
+  let clock:sinon.SinonFakeTimers;
+
+  beforeEach( () => {
+    clock = sinon.useFakeTimers();
+  })
+
+  beforeEach( () => {
+    clock.restore();
+  })
 
   it('keypad can contain a key', async () => {
     const el = await fixture<TelephoneKeypad>(html`<telephone-keypad><telephone-key options='["D", "E", "F", "2"]' ></telephone-key></telephone-keypad>`);
@@ -116,7 +126,7 @@ describe('TelephoneKeypad', () => {
     await expect(input?.value).to.equal("E");
   });
 
-  it('sends value to associated text input after a delay', async () => {
+  it.only('sends value to associated text input after a delay', async () => {
     const el = await fixture<HTMLElement>(html`
       <div>
         <input type="text" name="something" />
@@ -132,9 +142,12 @@ describe('TelephoneKeypad', () => {
     key.click();
     await expect(input?.value).to.equal("");
 
-    await new Promise((res) => {
-      setTimeout(res, 12);
-    });
+    // clock.tick(110);
+    // await new Promise((res) => {
+    //        setTimeout(res, 12);
+    //   });
+    console.log('clock', clock);
+    // clock.runAll();
 
     await expect(input?.value).to.equal("D");
   })

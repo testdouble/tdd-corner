@@ -36,11 +36,12 @@ export class TelephoneKeypad extends LitElement {
     if (!(event.target instanceof TelephoneKey)) return;
 
     const output = this._determineKeyOutput(event.target);
-    
+
     // Hook for testing - TODO be better
     this.testOutput = output;
-    
+
     const commit = () => {
+      console.log('commit')
       const inputs = this._findInput();
       for(const input of inputs as HTMLInputElement[]) {
         input.value += output;
@@ -53,8 +54,12 @@ export class TelephoneKeypad extends LitElement {
     }
 
     if(this.delay) {
+      console.log('here one', this.delay)
+      console.log('setTimeout', setTimeout)
+      console.log('window.setTimeout', window.setTimeout)
       this.pendingTimeout = setTimeout(commit, this.delay);
     } else {
+      console.log('here two')
       commit();
     }
   }
