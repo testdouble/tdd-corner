@@ -1,7 +1,7 @@
 # Current
-Time: Friday at 1300 ET (Check TD calendar and invite yourself)
+Time: Friday at 1400 ET (Check TD calendar and invite yourself)
 
-Exercise: A Rails app for submitting proposals to TDD corner
+Exercise: Pink Ribbon Good contributions
 
 Organizers: Steve Jackson and Andrew Walker
 
@@ -23,8 +23,8 @@ Again to reiterate - this is practice and hopefully fun, we're not trying to shi
 
 You might need:
 1. A github account
-1. A replit.com account (can be linked through github)
 1. VSCode with the LiveShare extension https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack
+1. A replit.com account (can be linked through github)
 
 ## Mob Programming
 If the numbers permit, we'll do a mob programming style.
@@ -39,7 +39,13 @@ https://mobti.me/td.   We'll start with strong pairing with these roles:
 
 # Archive
 
-## TODO-React
+## T9 Keypad
+Source: https://github.com/testdouble/tdd-corner/tree/main/telephone-keypad
+
+## A rails app for submitting TDD corner proposals
+Source: https://github.com/testdouble/tdd-corner/tree/main/tdd-me-plz
+
+## TODO list in react
 Source: https://github.com/testdouble/tdd-corner/tree/main/todo-react
 
 ## Advent of Code
